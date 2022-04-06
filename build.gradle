@@ -37,6 +37,9 @@ javafx {
 }
 
 dependencies {
+
+    implementation 'org.projectlombok:lombok:1.18.22'
+
     testImplementation(platform('org.junit:junit-bom:5.8.2'))
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation 'com.github.haifengl:smile-core:2.6.0'
