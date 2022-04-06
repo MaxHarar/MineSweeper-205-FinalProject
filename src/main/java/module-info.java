@@ -7,4 +7,6 @@ module csci205_FinalProject {
     requires javafx.controls;
     requires javafx.fxml;
 
+    requires lombok;
+
 }
