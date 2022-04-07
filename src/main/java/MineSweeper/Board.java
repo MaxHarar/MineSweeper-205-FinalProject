@@ -28,8 +28,11 @@ import java.util.List;
 public class Board {
 
     private Cell[][] cells;
-    private int numBombs;
+    private int numBombs; // not being used yet, random bomb logic is in initCell
     private final int borderSize = 1;
+
+    /** An array of row col offsets for checking neighboring cells */
+    int[] offsets = {1,0,1,-1,0,-1,-1,-1,-1,0,-1,1,0,1,1,1};
 
     public Cell[][] getCells(){return cells;}
 
@@ -43,15 +46,12 @@ public class Board {
         List<Cell> visited = new ArrayList<Cell>();
         return handleCellHelper(r,c,flagging,visited);
     }
-    // Needs a lot of work, just wanted to create the general logic
-    // returns 0 if everything went fine, 1 if they clicked bomb
-    public int handleCellHelper(int r, int c, boolean flagging, List<Cell> visited){
-        int[] offsets = {1,0,1,-1,0,-1,-1,-1,-1,0,-1,1,0,1,1,1};
 
+    public int handleCellHelper(int r, int c, boolean flagging, List<Cell> visited){
         if (cells[r][c].isHasBomb()) return 1;
         cells[r][c].setVisible(true);
 
-        if (cells[r][c].isBorder() || cells[r][c].getNeighbors() > 0) return 0;
+        if (cells[r][c].isBorder() || cells[r][c].getNeighboringBombs() > 0) return 0;
         if (visited.contains(cells[r][c])) return 0; else visited.add(cells[r][c]);
 
         int sum = 0;
@@ -66,30 +66,8 @@ public class Board {
 
         for (int row = 0; row < this.cells.length; row++ ){
             for (int column = 0; column < this.cells[row].length; column++){
-
-                this.cells[row][column] = new Cell();
-
-                if (row == 0 || column == 0 || row == this.cells.length-1 || column == this.cells[row].length-1 ){
-
-
-                    this.cells[row][column].setBorder(true);
-                    this.cells[row][column].setDisplayChar('B');
-                    this.cells[row][column].setVisible(true);
-
-                }else{
-                    int ran = (int)(Math.random()*10);
-                    if (ran == 0){
-                        this.cells[row][column].setHasBomb(true);
-                        bombs.add(new Point(row, column));
-                    }else{
-                        this.cells[row][column].setDisplayChar('-');
-                    }
-                    this.cells[row][column].setBorder(false);
-                }
-
+                initCell(bombs, row, column);
             }
-
-
         }
 
         for (Point bomb : bombs){
@@ -97,34 +75,32 @@ public class Board {
         }
     }
 
-    private void initNeighbors(int r, int c){
-        cells[r][c].setDisplayChar('*');
+    private void initCell(List<Point> bombs, int row, int column) {
+        this.cells[row][column] = new Cell();
 
-        cells[r+1][c].addNeighbors(1);
-        cells[r+1][c].resetDisplayChar();
+        if (row == 0 || column == 0 || row == this.cells.length-1 || column == this.cells[row].length-1 ){
+            this.cells[row][column].setBorder(true);
+            this.cells[row][column].setDisplayChar('B');
+            this.cells[row][column].setVisible(true);
 
-        cells[r+1][c+1].addNeighbors(1);
-        cells[r+1][c+1].resetDisplayChar();
-
-        cells[r+1][c-1].addNeighbors(1);
-        cells[r+1][c-1].resetDisplayChar();
-
-        cells[r-1][c].addNeighbors(1);
-        cells[r-1][c].resetDisplayChar();
-
-        cells[r-1][c+1].addNeighbors(1);
-        cells[r-1][c+1].resetDisplayChar();
-
-        cells[r-1][c-1].addNeighbors(1);
-        cells[r-1][c-1].resetDisplayChar();
-
-        cells[r][c+1].addNeighbors(1);
-        cells[r][c+1].resetDisplayChar();
-
-        cells[r][c-1].addNeighbors(1);
-        cells[r][c-1].resetDisplayChar();
+        }else{
+            int ran = (int)(Math.random()*10);
+            if (ran == 0){
+                this.cells[row][column].setHasBomb(true);
+                bombs.add(new Point(row, column));
+            }else{
+                this.cells[row][column].setDisplayChar('-');
+            }
+            this.cells[row][column].setBorder(false);
+        }
     }
 
-
+    private void initNeighbors(int r, int c){
+        cells[r][c].setDisplayChar('*');
+        for (int n = 0; n < offsets.length; n+=2){
+            cells[r+offsets[n]][c+offsets[n+1]].addNeighboringBomb(1);
+            cells[r+offsets[n]][c+offsets[n+1]].resetDisplayChar();
+        }
+    }
 
 }

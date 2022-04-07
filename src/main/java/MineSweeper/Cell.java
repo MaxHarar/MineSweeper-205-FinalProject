@@ -25,7 +25,7 @@ public class Cell {
     private boolean isFlagged;
     private boolean isVisible;
     private boolean isBorder;
-    private int neighbors;
+    private int neighboringBombs;
     private char displayChar;
 
     public char getDisplayChar() {
@@ -68,19 +68,19 @@ public class Cell {
         isBorder = border;
     }
 
-    public void addNeighbors(int n){ neighbors += n; }
+    public void addNeighboringBomb(int n){ neighboringBombs += n; }
 
-    public int getNeighbors(){ return neighbors;}
+    public int getNeighboringBombs(){ return neighboringBombs;}
 
     public void resetDisplayChar(){
         if (!hasBomb && !isBorder)
-            displayChar = Character.forDigit(neighbors,10);
+            displayChar = Character.forDigit(neighboringBombs,10);
         if (hasBomb)
             displayChar = '*';
     }
 
     public Cell(){
-        neighbors = 0;
+        neighboringBombs = 0;
         hasBomb = false;
         isFlagged = false;
         isVisible = false;
