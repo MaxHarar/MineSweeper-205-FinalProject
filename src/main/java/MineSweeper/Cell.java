@@ -21,6 +21,13 @@ import lombok.*;
 @Getter
 public class Cell {
 
+    private boolean hasBomb;
+    private boolean isFlagged;
+    private boolean isVisible;
+    private boolean isBorder;
+    private int neighbors;
+    private char displayChar;
+
     public char getDisplayChar() {
         return displayChar;
     }
@@ -28,8 +35,6 @@ public class Cell {
     public void setDisplayChar(char displayChar) {
         this.displayChar = displayChar;
     }
-
-    private boolean hasBomb;
 
     public boolean isHasBomb() {
         return hasBomb;
@@ -63,22 +68,24 @@ public class Cell {
         isBorder = border;
     }
 
-    private boolean isFlagged;
-    private boolean isVisible;
-    private boolean isBorder;
-    private char displayChar;
+    public void addNeighbors(int n){ neighbors += n; }
 
+    public int getNeighbors(){ return neighbors;}
+
+    public void resetDisplayChar(){
+        if (!hasBomb && !isBorder)
+            displayChar = Character.forDigit(neighbors,10);
+        if (hasBomb)
+            displayChar = '*';
+    }
 
     public Cell(){
-
+        neighbors = 0;
         hasBomb = false;
         isFlagged = false;
         isVisible = false;
         isBorder = false;
 
     }
-
-
-
 
 }
