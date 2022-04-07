@@ -37,11 +37,24 @@ public class Game {
 
     private void printBoard(boolean checkVisibility){
         char disp;
+        int row;
         Cell[][] cells = theBoard.getCells();
-        for (int r = 0; r < cells.length; r++){
+        for (int r = 0; r < cells.length+2; r++){
+            if (r < 2)
+                System.out.print("    ");
             for (int c = 0; c < cells[0].length; c++){
-                disp = (cells[r][c].isVisible() || !checkVisibility) ? cells[r][c].getDisplayChar() : ' ';
-                System.out.print(disp);
+                if (r < 2){
+                    if (r == 0)
+                        System.out.print(c % 10 + " ");
+                    else
+                        System.out.print("~ ");
+                }else{
+                    row = r - 2;
+                    if (c == 0)
+                        System.out.print(String.format("%4s",row + "~ "));
+                    disp = (cells[row][c].isVisible() || !checkVisibility) ? cells[row][c].getDisplayChar() : ' ';
+                    System.out.print(disp + " ");
+                }
             }
             System.out.println();
         }
