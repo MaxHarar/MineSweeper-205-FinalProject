@@ -11,6 +11,8 @@
  ******************************************/
 package MineSweeper;
 
+import java.util.Scanner;
+
 enum DIFFICULTY{
     EASY,
     MEDIUM,
@@ -29,13 +31,17 @@ public class Game {
 
     public Game(){
         startGame();
+        printBoard(false);
+        recursionTest();
     }
 
-    private void printBoard(){
+    private void printBoard(boolean checkVisibility){
+        char disp;
         Cell[][] cells = theBoard.getCells();
         for (int r = 0; r < cells.length; r++){
             for (int c = 0; c < cells[0].length; c++){
-                System.out.print(cells[r][c].getDisplayChar());
+                disp = (cells[r][c].isVisible() || !checkVisibility) ? cells[r][c].getDisplayChar() : ' ';
+                System.out.print(disp);
             }
             System.out.println();
         }
@@ -45,12 +51,25 @@ public class Game {
         theBoard = new Board(BOARD_ROWS,BOARD_COLS);
     }
 
+    private void recursionTest(){
+        Scanner scnr = new Scanner(System.in);
+        int r,c;
+        while (true){
+            System.out.println("Enter row:");
+            r = Integer.parseInt(scnr.next());
+            System.out.println("Enter col:");
+            c = Integer.parseInt(scnr.next());
+            theBoard.handleCell(r,c,false);
+            printBoard(true);
+        }
+    }
+
     public boolean playerMove(int x, int y){
 
         return false;
     }
 
     public static void main(String[] args) {
-        new Game().printBoard();
+        new Game();
     }
 }

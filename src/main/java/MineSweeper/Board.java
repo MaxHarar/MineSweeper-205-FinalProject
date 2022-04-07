@@ -49,11 +49,14 @@ public class Board {
         int[] offsets = {1,0,1,-1,0,-1,-1,-1,-1,0,-1,1,0,1,1,1};
 
         if (cells[r][c].isHasBomb()) return 1;
+        cells[r][c].setVisible(true);
+
+        if (cells[r][c].isBorder() || cells[r][c].getNeighbors() > 0) return 0;
         if (visited.contains(cells[r][c])) return 0; else visited.add(cells[r][c]);
 
         int sum = 0;
         for (int n = 0; n < offsets.length; n+=2){
-            sum += handleCellHelper(r+offsets[n],c+offsets[n], flagging, visited);
+            sum += handleCellHelper(r+offsets[n],c+offsets[n+1], flagging, visited);
         }
         return sum;
     }
@@ -71,16 +74,17 @@ public class Board {
 
                     this.cells[row][column].setBorder(true);
                     this.cells[row][column].setDisplayChar('B');
+                    this.cells[row][column].setVisible(true);
 
                 }else{
-                    int ran = (int)(Math.random()*5);
+                    int ran = (int)(Math.random()*10);
                     if (ran == 0){
                         this.cells[row][column].setHasBomb(true);
                         bombs.add(new Point(row, column));
                     }else{
-                        this.cells[row][column].setBorder(false);
                         this.cells[row][column].setDisplayChar('-');
                     }
+                    this.cells[row][column].setBorder(false);
                 }
 
             }
