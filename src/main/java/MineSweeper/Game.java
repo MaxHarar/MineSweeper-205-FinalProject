@@ -59,14 +59,15 @@ public class Game {
             r = Integer.parseInt(scnr.next());
             System.out.println("Enter col:");
             c = Integer.parseInt(scnr.next());
-            theBoard.handleCell(r,c,false);
+
+            playerMove(r,c,false);
+
             printBoard(true);
         }
     }
 
-    public boolean playerMove(int x, int y){
-
-        return false;
+    public boolean playerMove(int r, int c, boolean flagging){
+        return theBoard.handleCell(r,c,flagging) == 0;
     }
 
     public static void main(String[] args) {
