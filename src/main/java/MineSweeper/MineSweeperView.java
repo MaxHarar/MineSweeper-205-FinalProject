@@ -89,5 +89,8 @@ public class MineSweeperView {
                 }
                 counter++;
             }}
+
+
+
     }
 }

@@ -62,6 +62,11 @@ public class MineSweeperController {
                 int finalC = c;
                 labels[r][c].setOnMouseClicked(event -> {
                     game.playerMove(finalR, finalC,false);
+
+                    for (Cell cell: game.getVisitedCells()) {
+                        labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+                    }
+
                     game.printBoard(true);
                     //rects[r][c].getStyleClass().add("thing");
                 });

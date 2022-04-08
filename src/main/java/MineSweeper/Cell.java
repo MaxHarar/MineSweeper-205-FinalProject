@@ -40,6 +40,26 @@ public class Cell {
     /** the character to be displayed if the cell is visible */
     private char displayChar;
 
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    private int row;
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    private int column;
+
     private SimpleStringProperty displayStringProperty;
 
     public SimpleStringProperty getDisplayStringProperty(){ return displayStringProperty; }
@@ -104,13 +124,15 @@ public class Cell {
             displayChar = '*';
     }
 
-    public Cell(){
+    public Cell(int row, int column){
         neighboringBombs = 0;
         hasBomb = false;
         isFlagged = false;
         isVisible = false;
         isBorder = false;
         displayStringProperty = new SimpleStringProperty(" ");
+        this.row = row;
+        this.column = column;
 
     }
 
