@@ -11,6 +11,7 @@
  ******************************************/
 package MineSweeper;
 
+import java.util.List;
 import java.util.Scanner;
 
 enum DIFFICULTY{
@@ -111,6 +112,10 @@ public class Game {
      */
     public boolean playerMove(int r, int c, boolean flagging){
         return theBoard.handleCell(r,c,flagging) == 0;
+    }
+
+    public List<Cell> getVisitedCells(){
+        return theBoard.getVisited();
     }
 
     public static void main(String[] args) {

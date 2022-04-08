@@ -30,6 +30,17 @@ public class Board {
     /** all cells on the board */
     private Cell[][] cells;
 
+
+    public List<Cell> getVisited() {
+        return visited;
+    }
+
+    public void setVisited(List<Cell> visited) {
+        this.visited = visited;
+    }
+
+    List<Cell> visited = new ArrayList<Cell>();
+
     /** number of bombs on the map */
     private int numBombs; // not being used yet, random bomb logic is in initCell
 
@@ -53,7 +64,7 @@ public class Board {
      * @return a positive integer. 0 means it was successful, otherwise it was not.
      */
     public int handleCell(int r, int c, boolean flagging){
-        List<Cell> visited = new ArrayList<Cell>();
+
         return handleCellHelper(r,c,visited);
     }
 
@@ -65,6 +76,7 @@ public class Board {
     public int handleCellHelper(int r, int c, List<Cell> visited){
         if (cells[r][c].isHasBomb()) return 1;
         cells[r][c].setVisible(true);
+
 
         if (cells[r][c].isBorder() || cells[r][c].getNeighboringBombs() > 0) return 0;
         if (visited.contains(cells[r][c])) return 0; else visited.add(cells[r][c]);
@@ -99,7 +111,7 @@ public class Board {
      * @param bombs - list which will hold all cells selected to be bombs
      */
     private void initCell(List<Point> bombs, int row, int column) {
-        this.cells[row][column] = new Cell();
+        this.cells[row][column] = new Cell(row,column);
 
         if (row == 0 || column == 0 || row == this.cells.length-1 || column == this.cells[row].length-1 ){
             this.cells[row][column].setBorder(true);

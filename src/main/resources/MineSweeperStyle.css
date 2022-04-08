@@ -21,7 +21,15 @@
     -fx-font-weight: Bold;
     -fx-font-size: 20;
     -fx-background-color: DarkGreen;
+}
 
-
-
+.exploredTile{
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-font-family: Verdana;
+    -fx-font-weight: Bold;
+    -fx-font-size: 20;
+    -fx-background-color: #ff8200;
 }
