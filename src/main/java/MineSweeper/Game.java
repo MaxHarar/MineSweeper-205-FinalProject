@@ -26,7 +26,7 @@ public class Game {
     private final int BOARD_ROWS = 15;
 
     /** size of the board in columns */
-    private final int BOARD_COLS = 40;
+    private final int BOARD_COLS = 41;
 
     /** currently selected difficulty */
     private DIFFICULTY difficulty; //not being used yet
