@@ -73,6 +73,7 @@ public class MineSweeperController {
                         game.printBoard(true);
                     }else if(event.getButton() == MouseButton.SECONDARY){
 
+                        //Havent changed the cell at all, just changed color to red, more work needed
                         labels[finalR][finalC].getStyleClass().add("flaggedTile");
                     }
 
