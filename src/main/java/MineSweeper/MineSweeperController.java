@@ -11,10 +11,13 @@
  ******************************************/
 package MineSweeper;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 
 public class MineSweeperController {
 
@@ -25,6 +28,7 @@ public class MineSweeperController {
         this.theView = view;
         this.game = game;
         initBindings();
+        initHandlers();
     }
 
     private void initBindings(){
@@ -36,7 +40,28 @@ public class MineSweeperController {
 
         for (int r = 0; r < rows; r++){
             for (int c = 0; c < cols; c++){
-                labels[r][c].textProperty().bind(new SimpleStringProperty("" + cells[r][c].getDisplayChar()));
+                labels[r][c].textProperty().bind(Bindings.when(new SimpleBooleanProperty(cells[r][c].isVisible()))
+                        .then(cells[r][c].getDisplayChar() + "H")
+                        .otherwise(" "));
+            }
+        }
+    }
+
+    private void initHandlers(){
+        int rows = game.getRowCount();
+        int cols = game.getColCount();
+
+        Label[][] labels = theView.getLabels();
+        Cell[][] cells = game.getCells();
+
+        for (int r = 0; r < rows; r++){
+            for (int c = 0; c < cols; c++){
+                int finalR = r;
+                int finalC = c;
+                labels[r][c].setOnMouseClicked(event -> {
+                    game.playerMove(finalR, finalC,false);
+                    game.printBoard(true);
+                });
             }
         }
     }

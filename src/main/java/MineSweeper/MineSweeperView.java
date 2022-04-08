@@ -52,13 +52,14 @@ public class MineSweeperView {
         Rectangle currRect;
         StackPane sPane;
 
-        System.out.println("up here");
         for (int r = 0; r < game.getRowCount(); r++){
             for (int c = 0; c < game.getColCount(); c++){
                 currRect = new Rectangle(20,20);
                 currRect.setFill(Color.GREY);
                 rects[r][c] = (currRect);
                 labels[r][c] = new Label(" ");
+                labels[r][c].setPrefWidth(20);
+                labels[r][c].setPrefHeight(20);
 
                 sPane = new StackPane(currRect, labels[r][c]);
                 rectGrid.add(sPane,c,r,1,1);
