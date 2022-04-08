@@ -40,9 +40,7 @@ public class MineSweeperController {
 
         for (int r = 0; r < rows; r++){
             for (int c = 0; c < cols; c++){
-                labels[r][c].textProperty().bind(Bindings.when(new SimpleBooleanProperty(cells[r][c].isVisible()))
-                        .then(cells[r][c].getDisplayChar() + "H")
-                        .otherwise(" "));
+                labels[r][c].textProperty().bind(cells[r][c].getDisplayStringProperty());
             }
         }
     }
