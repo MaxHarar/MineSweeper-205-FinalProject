@@ -28,7 +28,7 @@ public class MineSweeperController {
         this.theView = view;
         this.game = game;
         initBindings();
-        initHandlers();
+        initHandlers(this.game.getTheBoard());
     }
 
     private void initBindings(){
@@ -47,7 +47,7 @@ public class MineSweeperController {
         }
     }
 
-    private void initHandlers(){
+    private void initHandlers(Board theBoard){
         int rows = game.getRowCount();
         int cols = game.getColCount();
 
@@ -59,8 +59,8 @@ public class MineSweeperController {
                 int finalR = r;
                 int finalC = c;
                 labels[r][c].setOnMouseClicked(event -> {
-                    game.playerMove(finalR, finalC,false);
-                    game.printBoard(true);
+                    game.playerMove(theBoard, finalR, finalC,false);
+                    game.printBoard(theBoard,true);
                 });
             }
         }

@@ -33,16 +33,21 @@ public class Game {
 
     /** instance of the Board class */
     private Board theBoard;
+    private Board gameBoard;
+    private Board displayBoard;
 
     public Game(){
         startGame();
-        printBoard(false);
-        //recursionTest();
+        printBoard(this.gameBoard,false);
+        printBoard(this.displayBoard,false);
+        recursionTest(this.gameBoard);
     }
 
     public int getRowCount(){ return BOARD_ROWS; }
     public int getColCount(){ return BOARD_COLS; }
     public Cell[][] getCells(){ return theBoard.getCells(); }
+    public Board getTheBoard(){ return theBoard;}
+
 
     /**
      * Just prints out the current state of the board
@@ -52,7 +57,7 @@ public class Game {
      * B : Border cell
      * @param checkVisibility - if true, cells will only be printed out if they are visible
      */
-    public void printBoard(boolean checkVisibility){
+    public void printBoard(Board theBoard, boolean checkVisibility){
         char disp;
         int row;
         Cell[][] cells = theBoard.getCells();
@@ -81,13 +86,17 @@ public class Game {
      * Start the minesweeper game
      */
     public void startGame(){
-        theBoard = new Board(BOARD_ROWS,BOARD_COLS);
+
+        this.gameBoard = new Board(BOARD_ROWS,BOARD_COLS,true);
+        this.displayBoard = new Board(BOARD_ROWS,BOARD_COLS,false);
+
     }
+
 
     /**
      * simple test, mainly for recursion but works as a main test
      */
-    private void recursionTest(){
+    private void recursionTest(Board theBoard){
         Scanner scnr = new Scanner(System.in);
         int r,c;
         while (true){
@@ -96,20 +105,21 @@ public class Game {
             System.out.println("Enter col:");
             c = Integer.parseInt(scnr.next());
 
-            playerMove(r,c,false);
+            playerMove(theBoard,r,c,false);
 
-            printBoard(true);
+            printBoard(theBoard,false);
         }
     }
 
-    /**
-     * Makes a move as defined by the players' actions
-     * @param r
-     * @param c
-     * @param flagging - true if the player is placing a flag
-     * @return true if succesfull, false if they have now lost the game
-     */
-    public boolean playerMove(int r, int c, boolean flagging){
+        /**
+         * Makes a move as defined by the players' actions
+         * @param r
+         * @param c
+         * @param flagging - true if the player is placing a flag
+         * @return true if succesfull, false if they have now lost the game
+         */
+
+    public boolean playerMove(Board theBoard, int r, int c, boolean flagging){
         return theBoard.handleCell(r,c,flagging) == 0;
     }
 
