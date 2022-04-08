@@ -27,8 +27,13 @@ import java.util.List;
 @Setter
 public class Board {
 
+    /** all cells on the board */
     private Cell[][] cells;
+
+    /** number of bombs on the map */
     private int numBombs; // not being used yet, random bomb logic is in initCell
+
+    /** size of empty border around the cells matrix, allows for simpler neighbor checking */
     private final int borderSize = 1;
 
     /** An array of row col offsets for checking neighboring cells */
@@ -42,12 +47,22 @@ public class Board {
         initCells();
     }
 
+    /**
+     * Called when a cell is selected, passes work onto handleCellHelper()
+     * @param flagging - True if user is placing a flag
+     * @return a positive integer. 0 means it was successful, otherwise it was not.
+     */
     public int handleCell(int r, int c, boolean flagging){
         List<Cell> visited = new ArrayList<Cell>();
-        return handleCellHelper(r,c,flagging,visited);
+        return handleCellHelper(r,c,visited);
     }
 
-    public int handleCellHelper(int r, int c, boolean flagging, List<Cell> visited){
+    /**
+     * Recurses through all empty cells, makes them all visible including non empty cells bordering the area
+     * @param visited - cells that have been recursively visited already, prevents infinite loop
+     * @return a positive integer. 0 means it was successful, 1 means a bomb was clicked (player loses)
+     */
+    public int handleCellHelper(int r, int c, List<Cell> visited){
         if (cells[r][c].isHasBomb()) return 1;
         cells[r][c].setVisible(true);
 
@@ -56,11 +71,15 @@ public class Board {
 
         int sum = 0;
         for (int n = 0; n < offsets.length; n+=2){
-            sum += handleCellHelper(r+offsets[n],c+offsets[n+1], flagging, visited);
+            sum += handleCellHelper(r+offsets[n],c+offsets[n+1], visited);
         }
         return sum;
     }
 
+    /**
+     * Initiates all cells, mostly involves passing each cell to initCells
+     * Counts all cells' neighboring bombs
+     */
     private void initCells(){
         List<Point> bombs = new ArrayList<>();
 
@@ -75,6 +94,10 @@ public class Board {
         }
     }
 
+    /**
+     * Initiates single cells. Involves instantiating and randomly selecting cells to be bombs
+     * @param bombs - list which will hold all cells selected to be bombs
+     */
     private void initCell(List<Point> bombs, int row, int column) {
         this.cells[row][column] = new Cell();
 
@@ -95,6 +118,10 @@ public class Board {
         }
     }
 
+    /**
+     * Increases neighboringBomb count of each cell surrounding a bomb
+     * then resets the cell's display as to correctly show this new value on the board
+     */
     private void initNeighbors(int r, int c){
         cells[r][c].setDisplayChar('*');
         for (int n = 0; n < offsets.length; n+=2){
