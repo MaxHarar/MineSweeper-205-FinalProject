@@ -16,6 +16,7 @@
  *****************************************/
 package MineSweeper;
 
+import javafx.beans.property.SimpleStringProperty;
 import lombok.*;
 @Setter
 @Getter
@@ -39,6 +40,10 @@ public class Cell {
     /** the character to be displayed if the cell is visible */
     private char displayChar;
 
+    private SimpleStringProperty displayStringProperty;
+
+    public SimpleStringProperty getDisplayStringProperty(){ return displayStringProperty; }
+
     public char getDisplayChar() {
         return displayChar;
     }
@@ -60,6 +65,11 @@ public class Cell {
     }
 
     public void setVisible(boolean visible) {
+        if (visible){
+            displayStringProperty.set(displayChar + " ");
+        }else{
+            displayStringProperty.set(" ");
+        }
         isVisible = visible;
     }
 
@@ -100,6 +110,7 @@ public class Cell {
         isFlagged = false;
         isVisible = false;
         isBorder = false;
+        displayStringProperty = new SimpleStringProperty(" ");
 
     }
 
