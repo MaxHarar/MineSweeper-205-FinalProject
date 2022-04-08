@@ -52,7 +52,7 @@ public class Game {
      * B : Border cell
      * @param checkVisibility - if true, cells will only be printed out if they are visible
      */
-    private void printBoard(boolean checkVisibility){
+    public void printBoard(boolean checkVisibility){
         char disp;
         int row;
         Cell[][] cells = theBoard.getCells();
