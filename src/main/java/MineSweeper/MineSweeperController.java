@@ -21,12 +21,21 @@ import javafx.scene.shape.Rectangle;
 
 public class MineSweeperController {
 
+    private Label[][] labels;
+    private Rectangle[][] rects;
+    private Cell[][] cells;
+
     private MineSweeperView theView;
     private Game game;
 
     public MineSweeperController(MineSweeperView view, Game game){
         this.theView = view;
         this.game = game;
+
+        this.labels = theView.getLabels();
+        this.rects = theView.getRects();
+        this.cells = game.getCells();
+
         initBindings();
         initHandlers();
     }
@@ -35,12 +44,10 @@ public class MineSweeperController {
         int rows = game.getRowCount();
         int cols = game.getColCount();
 
-        Label[][] labels = theView.getLabels();
-        Cell[][] cells = game.getCells();
-
         for (int r = 0; r < rows; r++){
             for (int c = 0; c < cols; c++){
                 labels[r][c].textProperty().bind(cells[r][c].getDisplayStringProperty());
+                //rects[r][c].fillProperty().bind(cells[r][c].getColorProperty());
             }
         }
     }
@@ -49,9 +56,6 @@ public class MineSweeperController {
         int rows = game.getRowCount();
         int cols = game.getColCount();
 
-        Label[][] labels = theView.getLabels();
-        Cell[][] cells = game.getCells();
-
         for (int r = 0; r < rows; r++){
             for (int c = 0; c < cols; c++){
                 int finalR = r;
@@ -59,6 +63,7 @@ public class MineSweeperController {
                 labels[r][c].setOnMouseClicked(event -> {
                     game.playerMove(finalR, finalC,false);
                     game.printBoard(true);
+                    //rects[r][c].getStyleClass().add("thing");
                 });
             }
         }
