@@ -43,6 +43,7 @@ public class MineSweeperView {
         rectGrid = new GridPane();
         this.game = game;
         initSceneGraph();
+        initStyling();
     }
 
     public GridPane getRectGrid() { return rectGrid; }
@@ -74,6 +75,12 @@ public class MineSweeperView {
 
     private void styleLabel(int r, int c) {
         labels[r][c] = new Label(" ");
+       // labels[r][c].getStyleClass().add("initTile");
+
+        int i = 0;
+
+
+
       //  labels[r][c].setPrefWidth(20);
       //  labels[r][c].setPrefHeight(20);
       //  labels[r][c].setTextAlignment(TextAlignment.CENTER);
@@ -83,5 +90,23 @@ public class MineSweeperView {
 
     public VBox getRoot(){
         return root;
+    }
+
+    public void initStyling(){
+
+        int counter = 0;
+        for (int r = 0; r < game.getRowCount(); r++){
+            for (int c = 0; c < game.getColCount(); c++){
+
+                if (counter %2 == 0) {
+                    labels[r][c].getStyleClass().add("initTile");
+                }else{
+                    labels[r][c].getStyleClass().add("initTileDark");
+                }
+                counter++;
+            }}
+
+
+
     }
 }
