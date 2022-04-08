@@ -41,10 +41,37 @@ public class Board {
 
     public Cell[][] getCells(){return cells;}
 
-    public Board(int width, int height){
+    public Board(int width, int height, boolean isGameBoard){
+        int r = width + borderSize;
+        int c= height + borderSize;
 
-        this.cells = new Cell[width][height];
-        initCells();
+        this.cells = new Cell[r][c];
+        if (isGameBoard) {
+            initCells();
+        }else{
+
+
+
+            for (int row = 0; row < r; row++ ){
+                for (int column = 0; column < c; column++){
+                    this.cells[row][column] = new Cell();
+
+                    if (row == 0 || column == 0 || row == this.cells.length-1 || column == this.cells[row].length-1 ) {
+                        this.cells[row][column].setBorder(true);
+                        this.cells[row][column].setDisplayChar('B');
+                        this.cells[row][column].setVisible(true);
+                    }else{
+
+                        this.cells[row][column].setDisplayChar('-');
+                        this.cells[row][column].setBorder(false);
+                        this.cells[row][column].setVisible(true);
+                    }
+
+
+                }
+            }
+
+        }
     }
 
     /**
