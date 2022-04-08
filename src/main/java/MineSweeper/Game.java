@@ -37,8 +37,12 @@ public class Game {
     public Game(){
         startGame();
         printBoard(false);
-        recursionTest();
+        //recursionTest();
     }
+
+    public int getRowCount(){ return BOARD_ROWS; }
+    public int getColCount(){ return BOARD_COLS; }
+    public Cell[][] getCells(){ return theBoard.getCells(); }
 
     /**
      * Just prints out the current state of the board

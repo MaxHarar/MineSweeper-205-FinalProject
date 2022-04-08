@@ -43,7 +43,7 @@ public class Board {
 
     public Board(int width, int height){
 
-        this.cells = new Cell[width + borderSize][height + borderSize];
+        this.cells = new Cell[width][height];
         initCells();
     }
 
