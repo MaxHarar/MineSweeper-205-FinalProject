@@ -15,6 +15,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class MineSweeperMain extends Application {
 
     private MineSweeperView theView;
@@ -32,6 +34,13 @@ public class MineSweeperMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(theView.getRoot());
+try {
+    scene.getStylesheets().add(
+            Objects.requireNonNull(getClass().getResource("/MineSweeperStyle.css"))
+                    .toExternalForm());
+} catch(NullPointerException e){
+    System.out.println("NullPointer Exception ");
+}
 
         this.theController = new MineSweeperController(this.theView, this.game);
 
