@@ -12,6 +12,7 @@
 package MineSweeper;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -20,6 +21,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +61,7 @@ public class MineSweeperView {
                 currRect = new Rectangle(20,20);
                 currRect.setFill(Color.GREY);
                 rects[r][c] = (currRect);
-                labels[r][c] = new Label(" ");
-                labels[r][c].setPrefWidth(20);
-                labels[r][c].setPrefHeight(20);
+                styleLabel(r, c);
 
                 sPane = new StackPane(currRect, labels[r][c]);
                 rectGrid.add(sPane,c,r,1,1);
@@ -68,6 +70,15 @@ public class MineSweeperView {
         rectGrid.setHgap(1);
         rectGrid.setVgap(1);
         root.getChildren().add(rectGrid);
+    }
+
+    private void styleLabel(int r, int c) {
+        labels[r][c] = new Label(" ");
+        labels[r][c].setPrefWidth(20);
+        labels[r][c].setPrefHeight(20);
+        labels[r][c].setTextAlignment(TextAlignment.CENTER);
+        labels[r][c].setAlignment(Pos.CENTER);
+        labels[r][c].setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
 
     public VBox getRoot(){
