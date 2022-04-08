@@ -78,7 +78,11 @@ public class Board {
         cells[r][c].setVisible(true);
 
 
-        if (cells[r][c].isBorder() || cells[r][c].getNeighboringBombs() > 0) return 0;
+        if (cells[r][c].isBorder() || cells[r][c].getNeighboringBombs() > 0){
+            if(!cells[r][c].isBorder())
+                visited.add(cells[r][c]);
+            return 0;
+        }
         if (visited.contains(cells[r][c])) return 0; else visited.add(cells[r][c]);
 
         int sum = 0;
