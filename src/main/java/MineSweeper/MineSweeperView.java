@@ -62,30 +62,15 @@ public class MineSweeperView {
                 currRect = new Rectangle(20,20);
                 currRect.setFill(Color.GREY);
                 rects[r][c] = (currRect);
-                styleLabel(r, c);
+                labels[r][c] = new Label(" ");
 
                 sPane = new StackPane(currRect, labels[r][c]);
                 rectGrid.add(sPane,c,r,1,1);
             }
         }
-        rectGrid.setHgap(1);
-        rectGrid.setVgap(1);
+        rectGrid.setHgap(0);
+        rectGrid.setVgap(0);
         root.getChildren().add(rectGrid);
-    }
-
-    private void styleLabel(int r, int c) {
-        labels[r][c] = new Label(" ");
-       // labels[r][c].getStyleClass().add("initTile");
-
-        int i = 0;
-
-
-
-      //  labels[r][c].setPrefWidth(20);
-      //  labels[r][c].setPrefHeight(20);
-      //  labels[r][c].setTextAlignment(TextAlignment.CENTER);
-      //  labels[r][c].setAlignment(Pos.CENTER);
-      //  labels[r][c].setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
 
     public VBox getRoot(){
@@ -93,7 +78,6 @@ public class MineSweeperView {
     }
 
     public void initStyling(){
-
         int counter = 0;
         for (int r = 0; r < game.getRowCount(); r++){
             for (int c = 0; c < game.getColCount(); c++){
@@ -105,8 +89,5 @@ public class MineSweeperView {
                 }
                 counter++;
             }}
-
-
-
     }
 }
