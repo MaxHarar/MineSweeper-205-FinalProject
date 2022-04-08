@@ -21,11 +21,22 @@ import lombok.*;
 @Getter
 public class Cell {
 
+    /** true if this cell is a bomb */
     private boolean hasBomb;
+
+    /** true if this cell has a flag placed on it */
     private boolean isFlagged;
+
+    /** true if this cell is currently visible to the player */
     private boolean isVisible;
+
+    /** true if this cell is a border cell (not in play) */
     private boolean isBorder;
+
+    /** an integer representing the number of neighboring cells that have a bomb */
     private int neighboringBombs;
+
+    /** the character to be displayed if the cell is visible */
     private char displayChar;
 
     public char getDisplayChar() {
@@ -72,6 +83,10 @@ public class Cell {
 
     public int getNeighboringBombs(){ return neighboringBombs;}
 
+    /**
+     * resets the display char, makes sure that any changes to the neighboringBombs is
+     * reflected in the displayChar
+     */
     public void resetDisplayChar(){
         if (!hasBomb && !isBorder)
             displayChar = Character.forDigit(neighboringBombs,10);

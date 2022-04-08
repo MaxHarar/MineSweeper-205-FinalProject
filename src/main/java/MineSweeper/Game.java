@@ -22,11 +22,16 @@ enum DIFFICULTY{
 
 public class Game {
 
+    /** size of the board in rows */
     private final int BOARD_ROWS = 15;
+
+    /** size of the board in columns */
     private final int BOARD_COLS = 40;
 
-    private DIFFICULTY difficulty;
+    /** currently selected difficulty */
+    private DIFFICULTY difficulty; //not being used yet
 
+    /** instance of the Board class */
     private Board theBoard;
 
     public Game(){
@@ -35,6 +40,14 @@ public class Game {
         recursionTest();
     }
 
+    /**
+     * Just prints out the current state of the board
+     * - : Empty cell
+     * * : Bomb
+     * 0-9 : Number of neighboring bombs
+     * B : Border cell
+     * @param checkVisibility - if true, cells will only be printed out if they are visible
+     */
     private void printBoard(boolean checkVisibility){
         char disp;
         int row;
@@ -60,10 +73,16 @@ public class Game {
         }
     }
 
+    /**
+     * Start the minesweeper game
+     */
     public void startGame(){
         theBoard = new Board(BOARD_ROWS,BOARD_COLS);
     }
 
+    /**
+     * simple test, mainly for recursion but works as a main test
+     */
     private void recursionTest(){
         Scanner scnr = new Scanner(System.in);
         int r,c;
@@ -79,6 +98,13 @@ public class Game {
         }
     }
 
+    /**
+     * Makes a move as defined by the players' actions
+     * @param r
+     * @param c
+     * @param flagging - true if the player is placing a flag
+     * @return true if succesfull, false if they have now lost the game
+     */
     public boolean playerMove(int r, int c, boolean flagging){
         return theBoard.handleCell(r,c,flagging) == 0;
     }
