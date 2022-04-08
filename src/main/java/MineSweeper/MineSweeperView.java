@@ -74,11 +74,11 @@ public class MineSweeperView {
 
     private void styleLabel(int r, int c) {
         labels[r][c] = new Label(" ");
-        labels[r][c].setPrefWidth(20);
-        labels[r][c].setPrefHeight(20);
-        labels[r][c].setTextAlignment(TextAlignment.CENTER);
-        labels[r][c].setAlignment(Pos.CENTER);
-        labels[r][c].setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+      //  labels[r][c].setPrefWidth(20);
+      //  labels[r][c].setPrefHeight(20);
+      //  labels[r][c].setTextAlignment(TextAlignment.CENTER);
+      //  labels[r][c].setAlignment(Pos.CENTER);
+      //  labels[r][c].setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
 
     public VBox getRoot(){
