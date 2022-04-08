@@ -16,6 +16,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
@@ -61,16 +62,24 @@ public class MineSweeperController {
                 int finalR = r;
                 int finalC = c;
                 labels[r][c].setOnMouseClicked(event -> {
-                    game.playerMove(finalR, finalC,false);
 
-                    for (Cell cell: game.getVisitedCells()) {
-                        labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+                    if(event.getButton() == MouseButton.PRIMARY) {
+                        game.playerMove(finalR, finalC, false);
+
+                        for (Cell cell : game.getVisitedCells()) {
+                            labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+                        }
+
+                        game.printBoard(true);
+                    }else if(event.getButton() == MouseButton.SECONDARY){
+
+                        labels[finalR][finalC].getStyleClass().add("flaggedTile");
                     }
 
-                    game.printBoard(true);
-                    //rects[r][c].getStyleClass().add("thing");
                 });
+
+
+                }
             }
         }
     }
-}
