@@ -40,6 +40,8 @@ public class Cell {
     /** the character to be displayed if the cell is visible */
     private char displayChar;
 
+    private char savedChar;
+
     public int getRow() {
         return row;
     }
@@ -133,6 +135,19 @@ public class Cell {
         displayStringProperty = new SimpleStringProperty(" ");
         this.row = row;
         this.column = column;
+
+    }
+
+    public void saveDisplayCharAndUpdate(char newDisplayChar){
+
+        this.savedChar = this.displayChar;
+        this.displayChar = newDisplayChar;
+
+    }
+
+    public void revertDisplayChar(){
+
+        this.displayChar = this.savedChar;
 
     }
 
