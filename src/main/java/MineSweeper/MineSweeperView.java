@@ -88,9 +88,7 @@ public class MineSweeperView {
                     labels[r][c].getStyleClass().add("initTileDark");
                 }
                 counter++;
-            }}
-
-
-
+            }
+        }
     }
 }
