@@ -32,6 +32,7 @@ public class MineSweeperView {
 
     private VBox root;
     private Game game;
+    private HBox topBar;
 
     private Rectangle[][] rects;
     private Label[][] labels;
@@ -49,9 +50,11 @@ public class MineSweeperView {
     public GridPane getRectGrid() { return rectGrid; }
     public Rectangle[][] getRects(){ return rects; }
     public Label[][] getLabels(){ return labels; }
+    public HBox getTopBar() { return topBar; }
 
     private void initSceneGraph(){
         root = new VBox();
+        topBar = new HBox();
         root.setPadding(new Insets(0));
         root.setSpacing(0);
         Rectangle currRect;
@@ -68,6 +71,8 @@ public class MineSweeperView {
                 rectGrid.add(sPane,c,r,1,1);
             }
         }
+        topBar.getChildren().add(new Label("Heres a top bar thing\n\n"));
+        root.getChildren().add(topBar);
         rectGrid.setHgap(0);
         rectGrid.setVgap(0);
         root.getChildren().add(rectGrid);
