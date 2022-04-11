@@ -65,7 +65,11 @@ public class MineSweeperController {
                 int finalC = c;
                 labels[r][c].setOnMouseClicked(event -> {
 
+
                     if(event.getButton() == MouseButton.PRIMARY) {
+
+
+
                         if (!game.playerMove(finalR, finalC, false)) main.resetGame();
 
                         for (Cell cell : game.getVisitedCells()) {
@@ -75,9 +79,36 @@ public class MineSweeperController {
                         game.printBoard(true);
                     }else if(event.getButton() == MouseButton.SECONDARY){
 
-                        //Havent changed the cell at all, just changed color to red, more work needed
-                        labels[finalR][finalC].getStyleClass().add("flaggedTile");
+
+                        if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged()) return;
+
+
+
+                        //Bug in this, when players flag then flag a number title, the number
+                        //gets lost
+                        if (cells[finalR][finalC].isFlagged()){
+                            labels[finalR][finalC].getStyleClass().clear();
+                            labels[finalR][finalC].getStyleClass().add("initTile");
+                            cells[finalR][finalC].setFlagged(false);
+                            cells[finalR][finalC].setVisible(false);
+                            cells[finalR][finalC].setDisplayChar(' ');
+
+                        }else {
+
+
+
+
+                            labels[finalR][finalC].getStyleClass().add("flaggedTile");
+                            cells[finalR][finalC].setDisplayChar('F');
+                            cells[finalR][finalC].setFlagged(true);
+                            cells[finalR][finalC].setVisible(true);
+
+
+                        }
+
+
                     }
+
 
                 });
 
