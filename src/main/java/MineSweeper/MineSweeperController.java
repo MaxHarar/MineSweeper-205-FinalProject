@@ -28,10 +28,12 @@ public class MineSweeperController {
 
     private MineSweeperView theView;
     private Game game;
+    private MineSweeperMain main;
 
-    public MineSweeperController(MineSweeperView view, Game game){
+    public MineSweeperController(MineSweeperView view, Game game, MineSweeperMain main){
         this.theView = view;
         this.game = game;
+        this.main = main;
 
         this.labels = theView.getLabels();
         this.rects = theView.getRects();
@@ -64,7 +66,7 @@ public class MineSweeperController {
                 labels[r][c].setOnMouseClicked(event -> {
 
                     if(event.getButton() == MouseButton.PRIMARY) {
-                        game.playerMove(finalR, finalC, false);
+                        if (!game.playerMove(finalR, finalC, false)) main.resetGame();
 
                         for (Cell cell : game.getVisitedCells()) {
                             labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
