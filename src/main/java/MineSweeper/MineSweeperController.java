@@ -91,7 +91,7 @@ public class MineSweeperController {
                             labels[finalR][finalC].getStyleClass().add("initTile");
                             cells[finalR][finalC].setFlagged(false);
                             cells[finalR][finalC].setVisible(false);
-                            cells[finalR][finalC].setDisplayChar(' ');
+                            cells[finalR][finalC].revertDisplayChar();
 
                         }else {
 
@@ -99,7 +99,7 @@ public class MineSweeperController {
 
 
                             labels[finalR][finalC].getStyleClass().add("flaggedTile");
-                            cells[finalR][finalC].setDisplayChar('F');
+                            cells[finalR][finalC].saveDisplayCharAndUpdate('F');
                             cells[finalR][finalC].setFlagged(true);
                             cells[finalR][finalC].setVisible(true);
 
