@@ -38,6 +38,7 @@ public class MineSweeperView {
     private Label[][] labels;
     private GridPane rectGrid;
     private Rectangle topBarRect;
+    private Cell[][] cells;
 
     public MineSweeperView(Game game){
         rects = new Rectangle[game.getRowCount()][game.getColCount()];
@@ -67,6 +68,7 @@ public class MineSweeperView {
         topBar.getChildren().add(topBarRect);
         root.getChildren().add(topBar);
         root.getChildren().add(rectGrid);
+        this.cells = game.getCells();
     }
 
     private void initBackgroundComponents() {
@@ -98,8 +100,10 @@ public class MineSweeperView {
             for (int c = 0; c < game.getColCount(); c++){
                 if (counter %2 == 0) {
                     labels[r][c].getStyleClass().add("initTile");
+                    this.cells[r][c].setDarkTile(false);
                 }else{
                     labels[r][c].getStyleClass().add("initTileDark");
+                    this.cells[r][c].setDarkTile(true);
                 }
                 counter++;
             }
