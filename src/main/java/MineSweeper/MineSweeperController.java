@@ -124,7 +124,16 @@ public class MineSweeperController {
 
         if (cells[finalR][finalC].isFlagged()){
             labels[finalR][finalC].getStyleClass().clear();
-            labels[finalR][finalC].getStyleClass().add("initTile");
+
+            if (cells[finalR][finalC].isDarkTile()){
+
+                labels[finalR][finalC].getStyleClass().add("initTileDark");
+
+            }else{
+                labels[finalR][finalC].getStyleClass().add("initTile");
+            }
+
+
             cells[finalR][finalC].setFlagged(false);
             cells[finalR][finalC].setVisible(false);
             cells[finalR][finalC].revertDisplayChar();
