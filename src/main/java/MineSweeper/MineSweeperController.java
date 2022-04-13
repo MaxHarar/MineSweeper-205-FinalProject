@@ -21,16 +21,37 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
+
+/**
+ * The Mine Sweeper Controller - controls userinput and creates the bindings
+ * and handlers
+ */
 public class MineSweeperController {
 
+    /**2D label array */
     private Label[][] labels;
+
+    /**2D Rectangle array - here for color */
     private Rectangle[][] rects;
+
+    /**2D Cell array */
     private Cell[][] cells;
 
+    /**Minesweeper View*/
     private MineSweeperView theView;
+
+    /**The Game instance that the player is playing*/
     private Game game;
+
+    /**The Main class for the javafx output*/
     private MineSweeperMain main;
 
+    /**
+     * MineSweeper controller
+     * @param view - the view
+     * @param game - the game
+     * @param main - the main
+     */
     public MineSweeperController(MineSweeperView view, Game game, MineSweeperMain main){
         this.theView = view;
         this.game = game;
@@ -44,6 +65,9 @@ public class MineSweeperController {
         initHandlers();
     }
 
+    /**
+     * Inits the bindings for the class
+     */
     private void initBindings(){
         int rows = game.getRowCount();
         int cols = game.getColCount();
@@ -58,6 +82,9 @@ public class MineSweeperController {
         theView.getTopBarRect().setHeight(40);
     }
 
+    /**
+     * Inits the handlers for the class
+     */
     private void initHandlers(){
         int rows = game.getRowCount();
         int cols = game.getColCount();
@@ -73,6 +100,12 @@ public class MineSweeperController {
         }
     }
 
+    /**
+     * Set's the label handler for when a label is clicked
+     * @param finalR - the row
+     * @param finalC - the column
+     * @param event - MouseEvent
+     */
     private void setLabelHandler(int finalR, int finalC, MouseEvent event) {
         if(event.getButton() == MouseButton.PRIMARY) {
             onLeftClick(finalR, finalC);
@@ -81,6 +114,11 @@ public class MineSweeperController {
         }
     }
 
+    /**
+     * Handles flagging for the board
+     * @param finalR - row
+     * @param finalC - column
+     */
     private void onRightClick(int finalR, int finalC) {
         if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged()) return;
 
@@ -99,6 +137,13 @@ public class MineSweeperController {
         }
     }
 
+    /**
+     * Handles the left click actions
+     * checks to see if gameOver then calls the recursive call to
+     * change the explored labels
+     * @param finalR - the row
+     * @param finalC - column
+     */
     private void onLeftClick(int finalR, int finalC) {
         if (!game.playerMove(finalR, finalC, false)) main.resetGame();
 
