@@ -15,6 +15,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.util.Timer;
@@ -25,6 +26,7 @@ public class GameTimer extends Label {
 
     public GameTimer(){
         seconds = 0;
+        this.setFont(new Font(20));
     }
 
     public void start(){
@@ -38,7 +40,8 @@ public class GameTimer extends Label {
     }
 
     private void setTime(){
-        String time = String.format("%d:%d", seconds/60, seconds%60);
+        int s = seconds%60;
+        String time = String.format("%s:%s", "" + seconds/60, (s > 9) ? "" + s : "0" + s);
         this.setText(time);
     }
 }

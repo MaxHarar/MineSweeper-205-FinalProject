@@ -25,6 +25,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +95,7 @@ public class MineSweeperView {
         root.setSpacing(0);
         rectGrid.setHgap(0);
         rectGrid.setVgap(0);
+        topBar.setAlignment(Pos.BASELINE_LEFT);
         createCheckerBoardPattern();
     }
 
