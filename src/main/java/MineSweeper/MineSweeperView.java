@@ -64,7 +64,12 @@ public class MineSweeperView {
 
         initBackgroundComponents();
 
-        topBar.getChildren().add(topBarRect);
+        topBarRect.setFill(Color.GREEN);
+        GameTimer gameTimer = new GameTimer();
+        gameTimer.start();
+        StackPane sPane = new StackPane(topBarRect, gameTimer);
+
+        topBar.getChildren().add(sPane);
         root.getChildren().add(topBar);
         root.getChildren().add(rectGrid);
     }
