@@ -53,43 +53,49 @@ public class MineSweeperView {
     public Label[][] getLabels(){ return labels; }
     public HBox getTopBar() { return topBar; }
     public Rectangle getTopBarRect() { return topBarRect; }
+    public VBox getRoot(){
+        return root;
+    }
 
     private void initSceneGraph(){
         root = new VBox();
         topBar = new HBox();
-        root.setPadding(new Insets(0));
-        root.setSpacing(0);
         topBarRect = new Rectangle();
-        Rectangle currRect;
-        StackPane sPane;
 
+        initBackgroundComponents();
+
+        topBar.getChildren().add(topBarRect);
+        root.getChildren().add(topBar);
+        root.getChildren().add(rectGrid);
+    }
+
+    private void initBackgroundComponents() {
+        StackPane sPane;
+        Rectangle currRect;
         for (int r = 0; r < game.getRowCount(); r++){
             for (int c = 0; c < game.getColCount(); c++){
                 currRect = new Rectangle(20,20);
-                currRect.setFill(Color.GREY);
-                rects[r][c] = (currRect);
+                rects[r][c] = currRect;
                 labels[r][c] = new Label(" ");
 
                 sPane = new StackPane(currRect, labels[r][c]);
                 rectGrid.add(sPane,c,r,1,1);
             }
         }
-        topBar.getChildren().add(topBarRect);
-        root.getChildren().add(topBar);
-        rectGrid.setHgap(0);
-        rectGrid.setVgap(0);
-        root.getChildren().add(rectGrid);
-    }
-
-    public VBox getRoot(){
-        return root;
     }
 
     public void initStyling(){
+        root.setPadding(new Insets(0));
+        root.setSpacing(0);
+        rectGrid.setHgap(0);
+        rectGrid.setVgap(0);
+        createCheckerBoardPattern();
+    }
+
+    private void createCheckerBoardPattern() {
         int counter = 0;
         for (int r = 0; r < game.getRowCount(); r++){
             for (int c = 0; c < game.getColCount(); c++){
-
                 if (counter %2 == 0) {
                     labels[r][c].getStyleClass().add("initTile");
                 }else{
