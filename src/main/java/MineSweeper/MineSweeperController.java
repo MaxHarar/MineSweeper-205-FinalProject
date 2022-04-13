@@ -17,6 +17,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
@@ -50,7 +51,6 @@ public class MineSweeperController {
         for (int r = 0; r < rows; r++){
             for (int c = 0; c < cols; c++){
                 labels[r][c].textProperty().bind(cells[r][c].getDisplayStringProperty());
-                //rects[r][c].fillProperty().bind(cells[r][c].getColorProperty());
             }
         }
 
@@ -67,56 +67,45 @@ public class MineSweeperController {
                 int finalR = r;
                 int finalC = c;
                 labels[r][c].setOnMouseClicked(event -> {
-
-
-                    if(event.getButton() == MouseButton.PRIMARY) {
-
-
-
-                        if (!game.playerMove(finalR, finalC, false)) main.resetGame();
-
-                        for (Cell cell : game.getVisitedCells()) {
-                            labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
-                        }
-
-                        game.printBoard(true);
-                    }else if(event.getButton() == MouseButton.SECONDARY){
-
-
-                        if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged()) return;
-
-
-
-                        //Bug in this, when players flag then flag a number title, the number
-                        //gets lost
-                        if (cells[finalR][finalC].isFlagged()){
-                            labels[finalR][finalC].getStyleClass().clear();
-                            labels[finalR][finalC].getStyleClass().add("initTile");
-                            cells[finalR][finalC].setFlagged(false);
-                            cells[finalR][finalC].setVisible(false);
-                            cells[finalR][finalC].revertDisplayChar();
-
-                        }else {
-
-
-
-
-                            labels[finalR][finalC].getStyleClass().add("flaggedTile");
-                            cells[finalR][finalC].saveDisplayCharAndUpdate('F');
-                            cells[finalR][finalC].setFlagged(true);
-                            cells[finalR][finalC].setVisible(true);
-
-
-                        }
-
-
-                    }
-
-
+                    setLabelHandler(finalR, finalC, event);
                 });
-
-
-                }
             }
         }
     }
+
+    private void setLabelHandler(int finalR, int finalC, MouseEvent event) {
+        if(event.getButton() == MouseButton.PRIMARY) {
+            onLeftClick(finalR, finalC);
+        }else if(event.getButton() == MouseButton.SECONDARY){
+            onRightClick(finalR, finalC);
+        }
+    }
+
+    private void onRightClick(int finalR, int finalC) {
+        if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged()) return;
+
+        if (cells[finalR][finalC].isFlagged()){
+            labels[finalR][finalC].getStyleClass().clear();
+            labels[finalR][finalC].getStyleClass().add("initTile");
+            cells[finalR][finalC].setFlagged(false);
+            cells[finalR][finalC].setVisible(false);
+            cells[finalR][finalC].revertDisplayChar();
+
+        }else {
+            labels[finalR][finalC].getStyleClass().add("flaggedTile");
+            cells[finalR][finalC].saveDisplayCharAndUpdate('F');
+            cells[finalR][finalC].setFlagged(true);
+            cells[finalR][finalC].setVisible(true);
+        }
+    }
+
+    private void onLeftClick(int finalR, int finalC) {
+        if (!game.playerMove(finalR, finalC, false)) main.resetGame();
+
+        for (Cell cell : game.getVisitedCells()) {
+            labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+        }
+
+        game.printBoard(true);
+    }
+}
