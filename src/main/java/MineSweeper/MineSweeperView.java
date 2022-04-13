@@ -30,12 +30,18 @@ import java.util.List;
 
 public class MineSweeperView {
 
+    /**The root Vbox*/
     private VBox root;
+    /**The game the player is playing*/
     private Game game;
+    /**the topBar HBox*/
     private HBox topBar;
 
+    /**Rectangle [][] used for color*/
     private Rectangle[][] rects;
+    /**labels - displayed to player */
     private Label[][] labels;
+    /**The rectGrid on*/
     private GridPane rectGrid;
     private Rectangle topBarRect;
     private Cell[][] cells;
