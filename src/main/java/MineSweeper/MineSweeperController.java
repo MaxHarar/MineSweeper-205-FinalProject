@@ -53,6 +53,9 @@ public class MineSweeperController {
                 //rects[r][c].fillProperty().bind(cells[r][c].getColorProperty());
             }
         }
+
+        theView.getTopBarRect().widthProperty().bind(theView.getRoot().widthProperty());
+        theView.getTopBarRect().setHeight(40);
     }
 
     private void initHandlers(){
