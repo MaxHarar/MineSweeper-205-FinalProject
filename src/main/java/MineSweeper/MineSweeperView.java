@@ -31,14 +31,21 @@ import java.util.List;
 
 public class MineSweeperView {
 
+    /**The root Vbox*/
     private VBox root;
+    /**The game the player is playing*/
     private Game game;
+    /**the topBar HBox*/
     private HBox topBar;
 
+    /**Rectangle [][] used for color*/
     private Rectangle[][] rects;
+    /**labels - displayed to player */
     private Label[][] labels;
+    /**The rectGrid on*/
     private GridPane rectGrid;
     private Rectangle topBarRect;
+    private Cell[][] cells;
 
     public MineSweeperView(Game game){
         rects = new Rectangle[game.getRowCount()][game.getColCount()];
@@ -73,6 +80,7 @@ public class MineSweeperView {
         topBar.getChildren().add(sPane);
         root.getChildren().add(topBar);
         root.getChildren().add(rectGrid);
+        this.cells = game.getCells();
     }
 
     private void initBackgroundComponents() {
@@ -105,8 +113,10 @@ public class MineSweeperView {
             for (int c = 0; c < game.getColCount(); c++){
                 if (counter %2 == 0) {
                     labels[r][c].getStyleClass().add("initTile");
+                    this.cells[r][c].setDarkTile(false);
                 }else{
                     labels[r][c].getStyleClass().add("initTileDark");
+                    this.cells[r][c].setDarkTile(true);
                 }
                 counter++;
             }

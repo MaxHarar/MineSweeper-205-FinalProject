@@ -42,6 +42,16 @@ public class Cell {
 
     private char savedChar;
 
+    public boolean isDarkTile() {
+        return darkTile;
+    }
+
+    public void setDarkTile(boolean darkTile) {
+        this.darkTile = darkTile;
+    }
+
+    public boolean darkTile;
+
     public int getRow() {
         return row;
     }
