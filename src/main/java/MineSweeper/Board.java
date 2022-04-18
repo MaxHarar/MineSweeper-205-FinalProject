@@ -58,6 +58,10 @@ public class Board {
         initCells();
     }
 
+    public void clearVisitedCells(){
+        visited = new ArrayList<Cell>();
+    }
+
     /**
      * Called when a cell is selected, passes work onto handleCellHelper()
      * @param flagging - True if user is placing a flag

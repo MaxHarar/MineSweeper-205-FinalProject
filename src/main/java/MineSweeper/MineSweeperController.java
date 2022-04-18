@@ -20,6 +20,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.Collections;
 import java.util.List;
@@ -163,42 +164,11 @@ public class MineSweeperController {
         if (!game.playerMove(finalR, finalC, false)) main.resetGame();
 
         List<Cell> visited = game.getVisitedCells();
-        Collections.shuffle(visited);
 
-        Timer t = new Timer();
-        t.schedule(new TimerTask() {
-            int i = 0;
-            int end = visited.size();
-
-            @Override
-            public void run() {
-                if (i < end && i > -1){
-                    Cell cell = visited.get(i);
-                    if (cell != null)
-                        labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
-                }else{ this.cancel(); }
-                i++;
-            }
-        }, 0, 3);
-
-//        for (Cell cell : game.getVisitedCells()) {
-//            labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
-//        }
+        for (Cell cell : game.getVisitedCells()) {
+            labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+        }
 
         game.printBoard(true);
-    }
-
-    /**
-     * Pause the execution for given number of ms
-     * @param ms
-     */
-    public static void wait(int ms)
-    {
-        try{
-            Thread.sleep(ms);
-        }
-        catch(InterruptedException ex){
-            Thread.currentThread().interrupt();
-        }
     }
 }
