@@ -40,62 +40,55 @@ public class Cell {
     /** the character to be displayed if the cell is visible */
     private char displayChar;
 
+    /**Used to save the previous displayChar, used in flagging*/
     private char savedChar;
 
-    public boolean isDarkTile() {
-        return darkTile;
-    }
-
-    public void setDarkTile(boolean darkTile) {
-        this.darkTile = darkTile;
-    }
-
+    /**Is a darkTile*/
     public boolean darkTile;
 
+    /**The row of the cell*/
+    private int row;
+
+    /**The column of the cell*/
+    private int column;
+
+    /**Display String Property*/
+    private SimpleStringProperty displayStringProperty;
+
+
+
+
+    /**Various getters and setters */
+    public boolean isDarkTile() {return darkTile;}
+    public void setDarkTile(boolean darkTile) {this.darkTile = darkTile;}
     public int getRow() {
         return row;
     }
-
     public void setRow(int row) {
         this.row = row;
     }
-
-    private int row;
-
     public int getColumn() {
         return column;
     }
-
     public void setColumn(int column) {
         this.column = column;
     }
-
-    private int column;
-
-    private SimpleStringProperty displayStringProperty;
-
     public SimpleStringProperty getDisplayStringProperty(){ return displayStringProperty; }
-
     public char getDisplayChar() {
         return displayChar;
     }
-
-    public void setDisplayChar(char displayChar) {
+    public  void setDisplayChar(char displayChar) {
         this.displayChar = displayChar;
     }
-
     public boolean isHasBomb() {
         return hasBomb;
     }
-
     public void setHasBomb(boolean hasBomb) {
         this.hasBomb = hasBomb;
     }
-
     public boolean isVisible() {
         return isVisible;
     }
-
     public void setVisible(boolean visible) {
         if (visible){
             displayStringProperty.set(displayChar + " ");
@@ -108,21 +101,16 @@ public class Cell {
     public boolean isFlagged() {
         return isFlagged;
     }
-
     public void setFlagged(boolean flagged) {
         isFlagged = flagged;
     }
-
     public boolean isBorder() {
         return isBorder;
     }
-
     public void setBorder(boolean border) {
         isBorder = border;
     }
-
     public void addNeighboringBomb(int n){ neighboringBombs += n; }
-
     public int getNeighboringBombs(){ return neighboringBombs;}
 
     /**
@@ -136,6 +124,11 @@ public class Cell {
             displayChar = '*';
     }
 
+    /**
+     *
+     * @param row
+     * @param column
+     */
     public Cell(int row, int column){
         neighboringBombs = 0;
         hasBomb = false;
