@@ -119,7 +119,7 @@ public class Board {
 
         if (row == 0 || column == 0 || row == this.cells.length-1 || column == this.cells[row].length-1 ){
             this.cells[row][column].setBorder(true);
-            this.cells[row][column].setDisplayChar('B');
+            this.cells[row][column].setDisplayChar('-');
             this.cells[row][column].setVisible(true);
 
         }else{
@@ -128,7 +128,7 @@ public class Board {
                 this.cells[row][column].setHasBomb(true);
                 bombs.add(new Point(row, column));
             }else{
-                this.cells[row][column].setDisplayChar('-');
+                this.cells[row][column].setDisplayChar(' ');
             }
             this.cells[row][column].setBorder(false);
         }
