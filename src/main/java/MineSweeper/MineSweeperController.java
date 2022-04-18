@@ -172,13 +172,14 @@ public class MineSweeperController {
 
             @Override
             public void run() {
-                if (i < end){
+                if (i < end && i > -1){
                     Cell cell = visited.get(i);
-                    labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+                    if (cell != null)
+                        labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
                 }else{ this.cancel(); }
                 i++;
             }
-        }, 0, 5);
+        }, 0, 3);
 
 //        for (Cell cell : game.getVisitedCells()) {
 //            labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
