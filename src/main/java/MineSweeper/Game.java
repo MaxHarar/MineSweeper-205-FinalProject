@@ -24,10 +24,10 @@ enum DIFFICULTY{
 public class Game {
 
     /** size of the board in rows */
-    private final int BOARD_ROWS = 15;
+    private final int BOARD_ROWS = 13;
 
     /** size of the board in columns */
-    private final int BOARD_COLS = 41;
+    private final int BOARD_COLS = 13;
 
     /** currently selected difficulty */
     private DIFFICULTY difficulty; //not being used yet

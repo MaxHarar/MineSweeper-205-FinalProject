@@ -78,7 +78,8 @@ public class MineSweeperController {
             }
         }
 
-        theView.getTopBarRect().widthProperty().bind(theView.getRoot().widthProperty());
+        theView.getTopBarRect().widthProperty().bind(theView.getRectGrid().maxWidthProperty());
+        System.out.println(theView.getRectGrid().maxWidthProperty().getValue());
         theView.getTopBarRect().setHeight(40);
     }
 
