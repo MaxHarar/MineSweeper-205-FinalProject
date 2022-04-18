@@ -117,6 +117,7 @@ public class Game {
     public List<Cell> getVisitedCells(){
         return theBoard.getVisited();
     }
+    public void clearVisitedCells() { theBoard.clearVisitedCells(); }
 
     public static void main(String[] args) {
         new Game();
