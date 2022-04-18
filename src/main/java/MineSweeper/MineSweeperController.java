@@ -106,9 +106,30 @@ public class MineSweeperController {
             }
         }
 
+        theView.getDifficultSelector().valueProperty().addListener(event -> {
 
+            //Do not look at this
+            String difficulty = event.toString();
+            difficulty = difficulty.substring(difficulty.indexOf("value:") + 7);
+            difficulty = difficulty.substring(0,difficulty.length()-1);
 
-
+            switch(difficulty){
+                case "EASY":
+                    game.setBoardCols(10);
+                    game.setBoardRows(10);
+                    main.resetGame();
+                    break;
+                case "MEDIUM":
+                    System.out.println("medium");
+                    break;
+                case "HARD":
+                    System.out.println("hard");
+                    break;
+                case "INSANE":
+                    System.out.println("insane");
+                    break;
+            }
+        });
     }
 
     /**
