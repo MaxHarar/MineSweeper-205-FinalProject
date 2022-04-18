@@ -144,19 +144,4 @@ public class Board {
             cells[r+offsets[n]][c+offsets[n+1]].resetDisplayChar();
         }
     }
-
-    /**
-     * Pause the execution for given number of ms
-     * @param ms
-     */
-    public static void wait(int ms)
-    {
-        try{
-            Thread.sleep(ms);
-        }
-        catch(InterruptedException ex){
-            Thread.currentThread().interrupt();
-        }
-    }
-
 }

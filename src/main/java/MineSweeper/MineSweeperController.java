@@ -21,6 +21,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  * The Mine Sweeper Controller - controls userinput and creates the bindings
@@ -157,10 +162,42 @@ public class MineSweeperController {
     private void onLeftClick(int finalR, int finalC) {
         if (!game.playerMove(finalR, finalC, false)) main.resetGame();
 
-        for (Cell cell : game.getVisitedCells()) {
-            labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
-        }
+        List<Cell> visited = game.getVisitedCells();
+        Collections.shuffle(visited);
+
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            int i = 0;
+            int end = visited.size();
+
+            @Override
+            public void run() {
+                if (i < end){
+                    Cell cell = visited.get(i);
+                    labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+                }else{ this.cancel(); }
+                i++;
+            }
+        }, 0, 5);
+
+//        for (Cell cell : game.getVisitedCells()) {
+//            labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+//        }
 
         game.printBoard(true);
+    }
+
+    /**
+     * Pause the execution for given number of ms
+     * @param ms
+     */
+    public static void wait(int ms)
+    {
+        try{
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex){
+            Thread.currentThread().interrupt();
+        }
     }
 }
