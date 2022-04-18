@@ -138,7 +138,6 @@ public class Cell {
         displayStringProperty = new SimpleStringProperty(" ");
         this.row = row;
         this.column = column;
-
     }
 
     public void saveDisplayCharAndUpdate(char newDisplayChar){

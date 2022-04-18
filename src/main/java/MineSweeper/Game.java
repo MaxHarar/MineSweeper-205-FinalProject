@@ -24,10 +24,12 @@ enum DIFFICULTY{
 public class Game {
 
     /** size of the board in rows */
-    private final int BOARD_ROWS = 18;
+    private int BOARD_ROWS = 18;
 
     /** size of the board in columns */
-    private final int BOARD_COLS = 25;
+    private int BOARD_COLS = 25;
+
+    private int NUM_BOMBS = 10;
 
     /** currently selected difficulty */
     private DIFFICULTY difficulty; //not being used yet
@@ -44,6 +46,8 @@ public class Game {
     public int getRowCount(){ return BOARD_ROWS; }
     public int getColCount(){ return BOARD_COLS; }
     public Cell[][] getCells(){ return theBoard.getCells(); }
+    public void setBoardRows(int rows) { BOARD_ROWS = rows; }
+    public void setBoardCols(int cols) { BOARD_COLS = cols; }
 
     /**
      * Just prints out the current state of the board

@@ -76,6 +76,7 @@ public class MineSweeperView {
     public HBox getTopBar() { return topBar; }
     public Rectangle getTopBarRect() { return topBarRect; }
     public VBox getRoot(){return root;}
+    public ComboBox getDifficultSelector() { return difficultSelector; }
 
     /**
      * Initialize the Scene Graphics
@@ -92,13 +93,6 @@ public class MineSweeperView {
 
         GameTimer gameTimer = new GameTimer();
         gameTimer.start();
-
-
-
-
-
-
-
 
         difficultSelector = new  ComboBox();
 
