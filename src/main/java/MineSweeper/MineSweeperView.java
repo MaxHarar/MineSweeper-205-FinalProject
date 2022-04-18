@@ -14,6 +14,7 @@ package MineSweeper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -46,9 +47,20 @@ public class MineSweeperView {
     private Label[][] labels;
     /**The rectGrid on*/
     private GridPane rectGrid;
+    /**THe topNar Rectangle, used to display timer and other gameStats*/
     private Rectangle topBarRect;
+    /**The Cell[][] of the cells */
     private Cell[][] cells;
 
+    private ComboBox difficultSelector;
+
+    private HBox gameOptions;
+
+
+    /**
+     * The Javafx game creation
+     * @param game - Game Object
+     */
     public MineSweeperView(Game game){
         rects = new Rectangle[game.getRowCount()][game.getColCount()];
         labels = new Label[game.getRowCount()][game.getColCount()];
@@ -63,20 +75,46 @@ public class MineSweeperView {
     public Label[][] getLabels(){ return labels; }
     public HBox getTopBar() { return topBar; }
     public Rectangle getTopBarRect() { return topBarRect; }
-    public VBox getRoot(){
-        return root;
-    }
+    public VBox getRoot(){return root;}
 
+    /**
+     * Initialize the Scene Graphics
+     */
     private void initSceneGraph(){
         root = new VBox();
         topBar = new HBox();
         topBarRect = new Rectangle();
 
+       gameOptions = new HBox();
+
+
         initBackgroundComponents();
 
         GameTimer gameTimer = new GameTimer();
         gameTimer.start();
-        StackPane sPane = new StackPane(topBarRect, gameTimer);
+
+
+
+
+
+
+
+
+        difficultSelector = new  ComboBox();
+
+        difficultSelector.getItems().addAll(
+                "EASY",
+                "MEDIUM",
+                "HARD",
+                "INSANE"
+        );
+
+        gameOptions.getChildren().addAll(gameTimer,difficultSelector);
+
+       // sPane.getChildren().add(difficultSelector);
+        StackPane sPane = new StackPane(topBarRect, gameOptions);
+
+
 
         topBar.getChildren().add(sPane);
         root.getChildren().add(topBar);
@@ -84,6 +122,9 @@ public class MineSweeperView {
         this.cells = game.getCells();
     }
 
+    /**
+     * Initialize the Background
+     */
     private void initBackgroundComponents() {
         StackPane sPane;
         Rectangle currRect;
@@ -99,6 +140,9 @@ public class MineSweeperView {
         }
     }
 
+    /**
+     * Inits the styling of the figure
+     */
     public void initStyling(){
         root.setPadding(new Insets(0));
         root.setSpacing(0);
@@ -107,11 +151,14 @@ public class MineSweeperView {
         rectGrid.setVgap(0);
         rectGrid.setMaxWidth(gridSize * rectGrid.getColumnCount());
 
-        topBar.setAlignment(Pos.BASELINE_LEFT);
+        gameOptions.setAlignment(Pos.BASELINE_LEFT);
         topBarRect.setFill(Color.GREEN);
         createCheckerBoardPattern();
     }
 
+    /**
+     * Generates the checkerboard colors for the tiles
+     */
     private void createCheckerBoardPattern() {
         int counter = 0;
         for (int r = 0; r < game.getRowCount(); r++){
