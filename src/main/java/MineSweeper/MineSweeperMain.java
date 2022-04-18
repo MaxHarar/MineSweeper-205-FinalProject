@@ -51,10 +51,12 @@ public class MineSweeperMain extends Application {
     }
 
     public void resetGame(){
-        game = new Game();
-        this.theView = new MineSweeperView(this.game);
-        this.theController = new MineSweeperController(this.theView, this.game, this);
-        try{ start(primaryStage); }catch(Exception e){}
+        try {
+            init();
+            start(primaryStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

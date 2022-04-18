@@ -38,6 +38,8 @@ public class MineSweeperView {
     /**the topBar HBox*/
     private HBox topBar;
 
+    /**size of each grid element */
+    public static final int gridSize = 20;
     /**Rectangle [][] used for color*/
     private Rectangle[][] rects;
     /**labels - displayed to player */
@@ -72,7 +74,6 @@ public class MineSweeperView {
 
         initBackgroundComponents();
 
-        topBarRect.setFill(Color.GREEN);
         GameTimer gameTimer = new GameTimer();
         gameTimer.start();
         StackPane sPane = new StackPane(topBarRect, gameTimer);
@@ -88,7 +89,7 @@ public class MineSweeperView {
         Rectangle currRect;
         for (int r = 0; r < game.getRowCount(); r++){
             for (int c = 0; c < game.getColCount(); c++){
-                currRect = new Rectangle(20,20);
+                currRect = new Rectangle(gridSize, gridSize);
                 rects[r][c] = currRect;
                 labels[r][c] = new Label(" ");
 
@@ -101,9 +102,13 @@ public class MineSweeperView {
     public void initStyling(){
         root.setPadding(new Insets(0));
         root.setSpacing(0);
+
         rectGrid.setHgap(0);
         rectGrid.setVgap(0);
+        rectGrid.setMaxWidth(gridSize * rectGrid.getColumnCount());
+
         topBar.setAlignment(Pos.BASELINE_LEFT);
+        topBarRect.setFill(Color.GREEN);
         createCheckerBoardPattern();
     }
 

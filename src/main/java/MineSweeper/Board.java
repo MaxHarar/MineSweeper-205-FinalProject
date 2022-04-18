@@ -77,7 +77,6 @@ public class Board {
         if (cells[r][c].isHasBomb()) return 1;
         cells[r][c].setVisible(true);
 
-
         if (cells[r][c].isBorder() || cells[r][c].getNeighboringBombs() > 0){
             if(!cells[r][c].isBorder())
                 visited.add(cells[r][c]);
@@ -143,6 +142,20 @@ public class Board {
         for (int n = 0; n < offsets.length; n+=2){
             cells[r+offsets[n]][c+offsets[n+1]].addNeighboringBomb(1);
             cells[r+offsets[n]][c+offsets[n+1]].resetDisplayChar();
+        }
+    }
+
+    /**
+     * Pause the execution for given number of ms
+     * @param ms
+     */
+    public static void wait(int ms)
+    {
+        try{
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex){
+            Thread.currentThread().interrupt();
         }
     }
 
