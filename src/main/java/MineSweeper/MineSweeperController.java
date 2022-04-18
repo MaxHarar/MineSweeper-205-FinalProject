@@ -170,7 +170,12 @@ public class MineSweeperController {
         List<Cell> visited = game.getVisitedCells();
 
         for (Cell cell : game.getVisitedCells()) {
-            labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+
+            if (cell.isDarkTile()) {
+                labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTile");
+            }else{
+                labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTileLight");
+            }
         }
 
         game.printBoard(true);
