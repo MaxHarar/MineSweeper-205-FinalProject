@@ -14,14 +14,12 @@ package MineSweeper;
 import java.util.List;
 import java.util.Scanner;
 
-enum DIFFICULTY{
-    EASY,
-    MEDIUM,
-    HARD,
-    INSANE,
-};
 
 public class Game {
+
+
+    private DIFFICULTY theDifficulty;
+
 
     /** size of the board in rows */
     private int BOARD_ROWS = 18;
@@ -32,12 +30,19 @@ public class Game {
     private int NUM_BOMBS = 10;
 
     /** currently selected difficulty */
-    private DIFFICULTY difficulty; //not being used yet
+  //  private DIFFICULTY difficulty; //not being used yet
 
     /** instance of the Board class */
     private Board theBoard;
 
-    public Game(){
+    public Game(DIFFICULTY theDifficulty){
+
+        this.theDifficulty = theDifficulty;
+        BOARD_ROWS = theDifficulty.getRow();
+        BOARD_COLS = theDifficulty.getColumn();
+        NUM_BOMBS = theDifficulty.getNumOfBombs();
+
+
         startGame();
         printBoard(false);
         //recursionTest();
@@ -86,7 +91,7 @@ public class Game {
      * Start the minesweeper game
      */
     public void startGame(){
-        theBoard = new Board(BOARD_ROWS,BOARD_COLS);
+        theBoard = new Board(BOARD_ROWS,BOARD_COLS, NUM_BOMBS);
     }
 
     /**
@@ -123,7 +128,4 @@ public class Game {
     }
     public void clearVisitedCells() { theBoard.clearVisitedCells(); }
 
-    public static void main(String[] args) {
-        new Game();
-    }
 }

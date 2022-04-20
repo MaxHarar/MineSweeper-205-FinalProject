@@ -52,6 +52,8 @@ public class MineSweeperController {
     /**The Main class for the javafx output*/
     private MineSweeperMain main;
 
+    private DIFFICULTY currentDifficulty;
+
     /**
      * MineSweeper controller
      * @param view - the view
@@ -115,20 +117,23 @@ public class MineSweeperController {
 
             switch(difficulty){
                 case "EASY":
-                    game.setBoardCols(10);
-                    game.setBoardRows(10);
-                    main.resetGame();
+                    currentDifficulty = DIFFICULTY.EASY;
+
                     break;
                 case "MEDIUM":
+                    currentDifficulty = DIFFICULTY.MEDIUM;
                     System.out.println("medium");
                     break;
                 case "HARD":
+                    currentDifficulty = DIFFICULTY.HARD;
                     System.out.println("hard");
                     break;
                 case "INSANE":
+                    currentDifficulty = DIFFICULTY.INSANE;
                     System.out.println("insane");
                     break;
             }
+           // this.game = new Game(currentDifficulty);
         });
     }
 

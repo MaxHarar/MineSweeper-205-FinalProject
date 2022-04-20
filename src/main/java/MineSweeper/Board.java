@@ -52,8 +52,9 @@ public class Board {
 
     public Cell[][] getCells(){return cells;}
 
-    public Board(int width, int height){
+    public Board(int width, int height, int numBombs){
 
+        this.numBombs = numBombs;
         this.cells = new Cell[width][height];
         initCells();
     }
@@ -102,9 +103,11 @@ public class Board {
     private void initCells(){
         List<Point> bombs = new ArrayList<>();
 
+        int bombCount = 0;
+
         for (int row = 0; row < this.cells.length; row++ ){
             for (int column = 0; column < this.cells[row].length; column++){
-                initCell(bombs, row, column);
+               bombCount = initCell(bombs, row, column, bombCount);
             }
         }
 
@@ -117,7 +120,7 @@ public class Board {
      * Initiates single cells. Involves instantiating and randomly selecting cells to be bombs
      * @param bombs - list which will hold all cells selected to be bombs
      */
-    private void initCell(List<Point> bombs, int row, int column) {
+    private int initCell(List<Point> bombs, int row, int column, int bombCount) {
         this.cells[row][column] = new Cell(row,column);
 
         if (row == 0 || column == 0 || row == this.cells.length-1 || column == this.cells[row].length-1 ){
@@ -126,15 +129,22 @@ public class Board {
             this.cells[row][column].setVisible(true);
 
         }else{
+
+
             int ran = (int)(Math.random()*10);
+
             if (ran == 0){
                 this.cells[row][column].setHasBomb(true);
+                bombCount++;
                 bombs.add(new Point(row, column));
             }else{
                 this.cells[row][column].setDisplayChar(' ');
             }
             this.cells[row][column].setBorder(false);
         }
+
+
+        return bombCount;
     }
 
     /**
