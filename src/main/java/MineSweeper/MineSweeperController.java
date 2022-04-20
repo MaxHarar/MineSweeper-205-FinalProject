@@ -188,7 +188,6 @@ public class MineSweeperController {
     private void onLeftClick(int finalR, int finalC) {
         if (!game.playerMove(finalR, finalC, false)) main.resetGame();
 
-        List<Cell> visited = game.getVisitedCells();
 
         for (Cell cell : game.getVisitedCells()) {
 
