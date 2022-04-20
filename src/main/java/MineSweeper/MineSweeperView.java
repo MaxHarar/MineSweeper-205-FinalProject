@@ -103,6 +103,8 @@ public class MineSweeperView {
                 "INSANE"
         );
 
+        difficultSelector.getSelectionModel().selectFirst();
+
         gameOptions.getChildren().addAll(gameTimer,difficultSelector);
 
        // sPane.getChildren().add(difficultSelector);

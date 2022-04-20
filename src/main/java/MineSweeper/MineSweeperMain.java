@@ -27,7 +27,7 @@ public class MineSweeperMain extends Application {
     @Override
     public void init() throws Exception{
         super.init();
-        game = new Game();
+        game = new Game(DIFFICULTY.EASY);
         this.theView = new MineSweeperView(this.game);
         this.theController = new MineSweeperController(this.theView, this.game, this);
     }
