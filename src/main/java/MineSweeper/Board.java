@@ -101,26 +101,19 @@ public class Board {
      * Counts all cells' neighboring bombs
      */
     private void initCells(){
-        List<Point> bombs = new ArrayList<>();
-
-        int bombCount = 0;
-
         for (int row = 0; row < this.cells.length; row++ ){
             for (int column = 0; column < this.cells[row].length; column++){
-               bombCount = initCell(bombs, row, column, bombCount);
+               initCell(row, column);
             }
         }
-
-        for (Point bomb : bombs){
-            initNeighbors(bomb.x, bomb.y);
-        }
+        numBombs = (int)(cells.length * cells[0].length * .1);
+        initBombs();
     }
 
     /**
      * Initiates single cells. Involves instantiating and randomly selecting cells to be bombs
-     * @param bombs - list which will hold all cells selected to be bombs
      */
-    private int initCell(List<Point> bombs, int row, int column, int bombCount) {
+    private void initCell(int row, int column) {
         this.cells[row][column] = new Cell(row,column);
 
         if (row == 0 || column == 0 || row == this.cells.length-1 || column == this.cells[row].length-1 ){
@@ -129,22 +122,23 @@ public class Board {
             this.cells[row][column].setVisible(true);
 
         }else{
-
-
-            int ran = (int)(Math.random()*10);
-
-            if (ran == 0){
-                this.cells[row][column].setHasBomb(true);
-                bombCount++;
-                bombs.add(new Point(row, column));
-            }else{
-                this.cells[row][column].setDisplayChar(' ');
-            }
+            this.cells[row][column].setDisplayChar(' ');
             this.cells[row][column].setBorder(false);
+            this.cells[row][column].setHasBomb(false);
         }
+    }
 
-
-        return bombCount;
+    private void initBombs(){
+        int bombCount = 0;
+        while (bombCount < numBombs){
+            int r = (int)(Math.random() * (cells.length - 2)) + 1;
+            int c = (int)(Math.random() * (cells[r].length - 2)) + 1;
+            if (!cells[r][c].isHasBomb()){
+                cells[r][c].setHasBomb(true);
+                initNeighbors(r,c);
+                bombCount++;
+            }
+        }
     }
 
     /**
