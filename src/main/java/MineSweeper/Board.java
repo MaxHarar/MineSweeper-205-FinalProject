@@ -116,7 +116,7 @@ public class Board {
                initCell(row, column);
             }
         }
-        numBombs = (int)(cells.length * cells[0].length * .1);
+        numBombs = (int)(cells.length * cells[0].length * .2);
         initBombs(r, c);
     }
 
@@ -138,12 +138,12 @@ public class Board {
 
     private void initBombs(int startR, int startC){
         int bombCount = 0;
-        int maxLoop = 500;
+        int maxLoop = 2000;
         int loopCount = 0;
         while (bombCount < numBombs && loopCount < maxLoop){
             int r = (int)(Math.random() * (cells.length - 2)) + 1;
             int c = (int)(Math.random() * (cells[r].length - 2)) + 1;
-            if (!cells[r][c].isHasBomb() && countNeighboringBombs(r,c) < 3 && distanceTo(cells[startR][startC],cells[r][c]) > 3){
+            if (!cells[r][c].isHasBomb() && countNeighboringBombs(r,c) < 4 && distanceTo(cells[startR][startC],cells[r][c]) > 2){
                 cells[r][c].setHasBomb(true);
                 initNeighbors(r,c);
                 bombCount++;
