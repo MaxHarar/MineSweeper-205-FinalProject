@@ -85,12 +85,20 @@ public class MineSweeperView {
         root = new VBox();
         topBar = new HBox();
         topBarRect = new Rectangle();
+        gameOptions = new HBox();
 
-       gameOptions = new HBox();
+        createGrid();
+
+        StackPane sPane = getTopBarStackPane();
 
 
-        initBackgroundComponents();
+        topBar.getChildren().add(sPane);
+        root.getChildren().add(topBar);
+        root.getChildren().add(rectGrid);
+        this.cells = game.getCells();
+    }
 
+    private StackPane getTopBarStackPane() {
         GameTimer gameTimer = new GameTimer();
         gameTimer.start();
 
@@ -107,21 +115,14 @@ public class MineSweeperView {
 
         gameOptions.getChildren().addAll(gameTimer,difficultSelector);
 
-       // sPane.getChildren().add(difficultSelector);
         StackPane sPane = new StackPane(topBarRect, gameOptions);
-
-
-
-        topBar.getChildren().add(sPane);
-        root.getChildren().add(topBar);
-        root.getChildren().add(rectGrid);
-        this.cells = game.getCells();
+        return sPane;
     }
 
     /**
      * Initialize the Background
      */
-    private void initBackgroundComponents() {
+    private void createGrid() {
         StackPane sPane;
         Rectangle currRect;
         for (int r = 0; r < game.getRowCount(); r++){
@@ -134,6 +135,10 @@ public class MineSweeperView {
                 rectGrid.add(sPane,c,r,1,1);
             }
         }
+    }
+
+    public void updateGrid(){
+
     }
 
     /**

@@ -53,10 +53,9 @@ public class Board {
     public Cell[][] getCells(){return cells;}
 
     public Board(int width, int height, int numBombs){
-
         this.numBombs = numBombs;
         this.cells = new Cell[width][height];
-        initCells();
+        instantiateCells();
     }
 
     public void clearVisitedCells(){
@@ -66,10 +65,12 @@ public class Board {
     /**
      * Called when a cell is selected, passes work onto handleCellHelper()
      * @param flagging - True if user is placing a flag
+     * @param firstMove - True if this is the player's first move
      * @return a positive integer. 0 means it was successful, otherwise it was not.
      */
-    public int handleCell(int r, int c, boolean flagging){
-
+    public int handleCell(int r, int c, boolean flagging, boolean firstMove){
+        if (firstMove)
+            initCells(r, c);
         return handleCellHelper(r,c,visited);
     }
 
@@ -96,26 +97,33 @@ public class Board {
         return sum;
     }
 
+    public void instantiateCells(){
+        for (int row = 0; row < this.cells.length; row++ ){
+            for (int column = 0; column < this.cells[row].length; column++){
+                cells[row][column] = new Cell(row,column);
+                cells[row][column].setDisplayChar(' ');
+            }
+        }
+    }
+
     /**
      * Initiates all cells, mostly involves passing each cell to initCells
      * Counts all cells' neighboring bombs
      */
-    private void initCells(){
+    public void initCells(int r, int c){
         for (int row = 0; row < this.cells.length; row++ ){
             for (int column = 0; column < this.cells[row].length; column++){
                initCell(row, column);
             }
         }
         numBombs = (int)(cells.length * cells[0].length * .1);
-        initBombs();
+        initBombs(r, c);
     }
 
     /**
      * Initiates single cells. Involves instantiating and randomly selecting cells to be bombs
      */
     private void initCell(int row, int column) {
-        this.cells[row][column] = new Cell(row,column);
-
         if (row == 0 || column == 0 || row == this.cells.length-1 || column == this.cells[row].length-1 ){
             this.cells[row][column].setBorder(true);
             this.cells[row][column].setDisplayChar('-');
@@ -128,17 +136,34 @@ public class Board {
         }
     }
 
-    private void initBombs(){
+    private void initBombs(int startR, int startC){
         int bombCount = 0;
-        while (bombCount < numBombs){
+        int maxLoop = 500;
+        int loopCount = 0;
+        while (bombCount < numBombs && loopCount < maxLoop){
             int r = (int)(Math.random() * (cells.length - 2)) + 1;
             int c = (int)(Math.random() * (cells[r].length - 2)) + 1;
-            if (!cells[r][c].isHasBomb()){
+            if (!cells[r][c].isHasBomb() && countNeighboringBombs(r,c) < 3 && distanceTo(cells[startR][startC],cells[r][c]) > 3){
                 cells[r][c].setHasBomb(true);
                 initNeighbors(r,c);
                 bombCount++;
             }
+            loopCount++;
         }
+    }
+
+    private int distanceTo(Cell cell1, Cell cell2){
+        int val = (int)Math.sqrt(Math.pow(cell1.getRow() - cell2.getRow(),2) + Math.pow(cell1.getColumn() - cell2.getColumn(),2));
+        System.out.println(val);
+        return val;
+    }
+
+    private int countNeighboringBombs(int r, int c){
+        int count = 0;
+        for (int n = 0; n < offsets.length; n+=2){
+            count += (cells[r+offsets[n]][c+offsets[n+1]].isHasBomb()) ? 1 : 0;
+        }
+        return count;
     }
 
     /**
