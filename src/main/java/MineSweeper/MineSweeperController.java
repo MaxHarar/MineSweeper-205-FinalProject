@@ -52,6 +52,9 @@ public class MineSweeperController {
     /**The Main class for the javafx output*/
     private MineSweeperMain main;
 
+    /**True if the player has made atleast one move*/
+    private boolean hasClicked = false;
+
     private DIFFICULTY currentDifficulty;
 
     /**
@@ -146,7 +149,8 @@ public class MineSweeperController {
     private void setLabelHandler(int finalR, int finalC, MouseEvent event) {
         if(event.getButton() == MouseButton.PRIMARY) {
             onLeftClick(finalR, finalC);
-        }else if(event.getButton() == MouseButton.SECONDARY){
+            hasClicked = true;
+        }else if(event.getButton() == MouseButton.SECONDARY && hasClicked){
             onRightClick(finalR, finalC);
         }
     }
@@ -191,7 +195,7 @@ public class MineSweeperController {
      * @param finalC - column
      */
     private void onLeftClick(int finalR, int finalC) {
-        if (!game.playerMove(finalR, finalC, false)) main.resetGame();
+        if (!game.playerMove(finalR, finalC, false, !hasClicked)) main.resetGame();
 
 
         for (Cell cell : game.getVisitedCells()) {

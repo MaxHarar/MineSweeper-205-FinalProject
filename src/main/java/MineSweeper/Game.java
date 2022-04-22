@@ -95,32 +95,14 @@ public class Game {
     }
 
     /**
-     * simple test, mainly for recursion but works as a main test
-     */
-    private void recursionTest(){
-        Scanner scnr = new Scanner(System.in);
-        int r,c;
-        while (true){
-            System.out.println("Enter row:");
-            r = Integer.parseInt(scnr.next());
-            System.out.println("Enter col:");
-            c = Integer.parseInt(scnr.next());
-
-            playerMove(r,c,false);
-
-            printBoard(true);
-        }
-    }
-
-    /**
      * Makes a move as defined by the players' actions
      * @param r
      * @param c
      * @param flagging - true if the player is placing a flag
      * @return true if succesfull, false if they have now lost the game
      */
-    public boolean playerMove(int r, int c, boolean flagging){
-        return theBoard.handleCell(r,c,flagging) == 0;
+    public boolean playerMove(int r, int c, boolean flagging, boolean firstMove){
+        return theBoard.handleCell(r,c,flagging,firstMove) == 0;
     }
 
     public List<Cell> getVisitedCells(){

@@ -10,5 +10,4 @@ module csci205_FinalProject {
     requires lombok;
 
     exports MineSweeper;
-    exports main;
 }
