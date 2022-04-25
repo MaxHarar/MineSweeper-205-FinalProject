@@ -11,9 +11,9 @@
  ******************************************/
 package MineSweeper;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -22,13 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.stage.Popup;
 
 public class MineSweeperView {
 
@@ -52,10 +46,30 @@ public class MineSweeperView {
     /**The Cell[][] of the cells */
     private Cell[][] cells;
 
-    private ComboBox difficultSelector;
+    private Popup endGamePopUp;
+
+    private Label endGameLabel;
+
+
+
+
+    private ComboBox<String> difficultSelector;
 
     private HBox gameOptions;
 
+    private Label flaggedLabel;
+
+    public Label getFlaggedLabel() {
+        return flaggedLabel;
+    }
+
+    public Popup getEndGamePopUp() {
+        return endGamePopUp;
+    }
+
+    public Label getEndGameLabel() {
+        return endGameLabel;
+    }
 
     /**
      * The Javafx game creation
@@ -76,7 +90,7 @@ public class MineSweeperView {
     public HBox getTopBar() { return topBar; }
     public Rectangle getTopBarRect() { return topBarRect; }
     public VBox getRoot(){return root;}
-    public ComboBox getDifficultSelector() { return difficultSelector; }
+    public ComboBox<? extends String> getDifficultSelector() { return difficultSelector; }
 
     /**
      * Initialize the Scene Graphics
@@ -87,6 +101,8 @@ public class MineSweeperView {
         topBarRect = new Rectangle();
         gameOptions = new HBox();
 
+
+
         createGrid();
 
         StackPane sPane = getTopBarStackPane();
@@ -96,13 +112,23 @@ public class MineSweeperView {
         root.getChildren().add(topBar);
         root.getChildren().add(rectGrid);
         this.cells = game.getCells();
+
+
+
+
     }
+
+
 
     private StackPane getTopBarStackPane() {
         GameTimer gameTimer = new GameTimer();
         gameTimer.start();
 
-        difficultSelector = new  ComboBox();
+
+
+        flaggedLabel = new Label("temp");
+
+        difficultSelector = new  ComboBox<String>();
 
         difficultSelector.getItems().addAll(
                 "EASY",
@@ -113,10 +139,9 @@ public class MineSweeperView {
 
         difficultSelector.getSelectionModel().selectFirst();
 
-        gameOptions.getChildren().addAll(gameTimer,difficultSelector);
+        gameOptions.getChildren().addAll(gameTimer,difficultSelector,flaggedLabel);
 
-        StackPane sPane = new StackPane(topBarRect, gameOptions);
-        return sPane;
+        return new StackPane(topBarRect, gameOptions);
     }
 
     /**

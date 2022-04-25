@@ -14,6 +14,7 @@ package MineSweeper;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
@@ -57,6 +58,12 @@ public class MineSweeperController {
 
     private DIFFICULTY currentDifficulty;
 
+    private int flaggedCount = 0;
+    private StringProperty flaggedText;
+
+    private EndGamePopUp endGamePopUp;
+
+
     /**
      * MineSweeper controller
      * @param view - the view
@@ -71,6 +78,8 @@ public class MineSweeperController {
         this.labels = theView.getLabels();
         this.rects = theView.getRects();
         this.cells = game.getCells();
+
+
 
         initBindings();
         initHandlers();
@@ -92,6 +101,15 @@ public class MineSweeperController {
         theView.getTopBarRect().widthProperty().bind(theView.getRectGrid().maxWidthProperty());
         System.out.println(theView.getRectGrid().maxWidthProperty().getValue());
         theView.getTopBarRect().setHeight(40);
+
+
+        flaggedText = new SimpleStringProperty();
+        flaggedText.setValue("Flags Remaining: " + (this.game.getNUM_BOMBS() - flaggedCount));
+
+        theView.getFlaggedLabel().textProperty().bind(flaggedText);
+
+
+
     }
 
     /**
@@ -110,6 +128,8 @@ public class MineSweeperController {
                 });
             }
         }
+
+
 
         theView.getDifficultSelector().valueProperty().addListener(event -> {
 
@@ -161,7 +181,7 @@ public class MineSweeperController {
      * @param finalC - column
      */
     private void onRightClick(int finalR, int finalC) {
-        if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged()) return;
+        if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged() || flaggedCount >= this.game.getNUM_BOMBS()) return;
 
         if (cells[finalR][finalC].isFlagged()){
             labels[finalR][finalC].getStyleClass().clear();
@@ -184,6 +204,10 @@ public class MineSweeperController {
             cells[finalR][finalC].saveDisplayCharAndUpdate('F');
             cells[finalR][finalC].setFlagged(true);
             cells[finalR][finalC].setVisible(true);
+            flaggedCount++;
+            flaggedText.setValue("Flags Remaining: " + (this.game.getNUM_BOMBS() - flaggedCount));
+
+            System.out.println(flaggedCount);
         }
     }
 
@@ -195,7 +219,17 @@ public class MineSweeperController {
      * @param finalC - column
      */
     private void onLeftClick(int finalR, int finalC) {
-        if (!game.playerMove(finalR, finalC, false, !hasClicked)) main.resetGame();
+
+        if (cells[finalR][finalC].isFlagged()) return;
+
+
+        if (!game.playerMove(finalR, finalC, false, !hasClicked)){
+
+            endGamePopUp = new EndGamePopUp(game,main);
+            endGamePopUp.show();
+
+           // main.resetGame();
+        }
 
 
         for (Cell cell : game.getVisitedCells()) {
