@@ -116,7 +116,9 @@ public class Board {
                initCell(row, column);
             }
         }
-        numBombs = (int)(cells.length * cells[0].length * .2);
+
+        //why is this in here
+        //numBombs = (int)(cells.length * cells[0].length * .2);
         initBombs(r, c);
     }
 
@@ -138,23 +140,21 @@ public class Board {
 
     private void initBombs(int startR, int startC){
         int bombCount = 0;
-        int maxLoop = 2000;
-        int loopCount = 0;
-        while (bombCount < numBombs && loopCount < maxLoop){
+        while (bombCount < numBombs){
             int r = (int)(Math.random() * (cells.length - 2)) + 1;
             int c = (int)(Math.random() * (cells[r].length - 2)) + 1;
             if (!cells[r][c].isHasBomb() && countNeighboringBombs(r,c) < 4 && distanceTo(cells[startR][startC],cells[r][c]) > 2){
                 cells[r][c].setHasBomb(true);
                 initNeighbors(r,c);
                 bombCount++;
+                System.out.println("bomb count "+bombCount);
             }
-            loopCount++;
         }
     }
 
     private int distanceTo(Cell cell1, Cell cell2){
         int val = (int)Math.sqrt(Math.pow(cell1.getRow() - cell2.getRow(),2) + Math.pow(cell1.getColumn() - cell2.getColumn(),2));
-        System.out.println(val);
+       // System.out.println(val);
         return val;
     }
 

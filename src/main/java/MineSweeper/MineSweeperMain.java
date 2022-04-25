@@ -34,6 +34,7 @@ public class MineSweeperMain extends Application {
         game = new Game(DIFFICULTY.EASY);
         this.theView = new MineSweeperView(this.game);
         this.theController = new MineSweeperController(this.theView, this.game, this);
+
     }
 
     @Override

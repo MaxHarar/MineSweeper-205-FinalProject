@@ -5,8 +5,8 @@ public enum DIFFICULTY {
 
 
 
-        EASY(18,25,15),
-        MEDIUM(22,29,25),
+        EASY(14,19,18),
+        MEDIUM(18,23,40),
         HARD(26,33,100),
         INSANE(26, 33, 400);
 

@@ -58,6 +58,9 @@ public class MineSweeperController {
 
     private DIFFICULTY currentDifficulty;
 
+
+    private int defusedCount;
+
     private int flaggedCount = 0;
     private StringProperty flaggedText;
 
@@ -104,6 +107,7 @@ public class MineSweeperController {
 
 
         flaggedText = new SimpleStringProperty();
+
         flaggedText.setValue("Flags Remaining: " + (this.game.getNUM_BOMBS() - flaggedCount));
 
         theView.getFlaggedLabel().textProperty().bind(flaggedText);
@@ -181,10 +185,17 @@ public class MineSweeperController {
      * @param finalC - column
      */
     private void onRightClick(int finalR, int finalC) {
-        if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged() || flaggedCount >= this.game.getNUM_BOMBS()) return;
+        if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged()) return;
 
         if (cells[finalR][finalC].isFlagged()){
+            flaggedCount--;
+            flaggedText.setValue("Flags Remaining: " + (this.game.getNUM_BOMBS() - flaggedCount));
+
             labels[finalR][finalC].getStyleClass().clear();
+            if(cells[finalR][finalC].isHasBomb()){
+                defusedCount--;
+            }
+
 
             if (cells[finalR][finalC].isDarkTile()){
 
@@ -199,7 +210,11 @@ public class MineSweeperController {
             cells[finalR][finalC].setVisible(false);
             cells[finalR][finalC].revertDisplayChar();
 
+
         }else {
+
+            if (flaggedCount >= this.game.getNUM_BOMBS()) return;
+
             labels[finalR][finalC].getStyleClass().add("flaggedTile");
             cells[finalR][finalC].saveDisplayCharAndUpdate('F');
             cells[finalR][finalC].setFlagged(true);
@@ -207,7 +222,28 @@ public class MineSweeperController {
             flaggedCount++;
             flaggedText.setValue("Flags Remaining: " + (this.game.getNUM_BOMBS() - flaggedCount));
 
-            System.out.println(flaggedCount);
+           // System.out.println(flaggedCount);
+
+            if(cells[finalR][finalC].isHasBomb()){
+                defusedCount++;
+            }
+
+            System.out.println(defusedCount);
+
+
+            if (defusedCount == game.getNUM_BOMBS()){
+
+                endGamePopUp = new EndGamePopUp(main,"Winner!");
+                endGamePopUp.show();
+
+            }
+
+
+
+
+
+
+
         }
     }
 
@@ -225,7 +261,7 @@ public class MineSweeperController {
 
         if (!game.playerMove(finalR, finalC, false, !hasClicked)){
 
-            endGamePopUp = new EndGamePopUp(game,main);
+            endGamePopUp = new EndGamePopUp(main,"GameOver!");
             endGamePopUp.show();
 
            // main.resetGame();

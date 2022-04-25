@@ -39,12 +39,14 @@ public class EndGamePopUp extends Stage {
 
     private final Button playAgainBtn;
     private final Label gameOverMsg;
-    Game game;
+
     MineSweeperMain main;
 
-    public EndGamePopUp(Game game, MineSweeperMain main) {
+    public EndGamePopUp(MineSweeperMain main,String message) {
         super();
-        this.setTitle("GameOver!");
+        this.main = main;
+
+        this.setTitle(message);
         this.setResizable(false);
 
         this.initModality(Modality.APPLICATION_MODAL);
@@ -53,7 +55,7 @@ public class EndGamePopUp extends Stage {
 
 
         VBox root = new VBox();
-        gameOverMsg = new Label("Game Over!");
+        gameOverMsg = new Label(message);
         playAgainBtn = new Button("Play again");
         exitBtn = new Button("Exit");
 
