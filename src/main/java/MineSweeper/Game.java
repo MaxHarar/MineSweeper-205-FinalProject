@@ -79,7 +79,7 @@ public class Game {
                 }else{
                     row = r - 2;
                     if (c == 0)
-                        System.out.print(String.format("%4s",row + "~ "));
+                        System.out.printf("%4s",row + "~ ");
                     disp = (cells[row][c].isVisible() || !checkVisibility) ? cells[row][c].getDisplayChar() : ' ';
                     System.out.print(disp + " ");
                 }
