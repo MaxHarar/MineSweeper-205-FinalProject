@@ -53,6 +53,7 @@ public class Game {
     public Cell[][] getCells(){ return theBoard.getCells(); }
     public void setBoardRows(int rows) { BOARD_ROWS = rows; }
     public void setBoardCols(int cols) { BOARD_COLS = cols; }
+    public int getNUM_BOMBS(){return NUM_BOMBS;}
 
     /**
      * Just prints out the current state of the board

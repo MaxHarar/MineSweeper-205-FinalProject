@@ -12,6 +12,8 @@
 package MineSweeper;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -24,6 +26,8 @@ public class MineSweeperMain extends Application {
     private Stage primaryStage;
     private Game game;
 
+
+
     @Override
     public void init() throws Exception{
         super.init();
@@ -34,6 +38,7 @@ public class MineSweeperMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         Scene scene = new Scene(theView.getRoot());
         try {
             scene.getStylesheets().add(

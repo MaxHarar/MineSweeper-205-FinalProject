@@ -56,3 +56,10 @@
     -fx-background-color: #f50202;
 }
 
+.EndGamePopUp{
+    -fx-background-color: #312f2f;
+    -fx-pref-width: 120;
+    -fx-pref-height: 120;
+
+}
+
