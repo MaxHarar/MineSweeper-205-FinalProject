@@ -35,6 +35,10 @@ public class Game {
     /** instance of the Board class */
     private Board theBoard;
 
+    public DIFFICULTY getTheDifficulty() {
+        return theDifficulty;
+    }
+
     public Game(DIFFICULTY theDifficulty){
 
         this.theDifficulty = theDifficulty;
