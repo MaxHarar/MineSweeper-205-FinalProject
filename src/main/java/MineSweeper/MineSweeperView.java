@@ -137,7 +137,21 @@ public class MineSweeperView {
                 "INSANE"
         );
 
-        difficultSelector.getSelectionModel().selectFirst();
+
+        switch(game.getTheDifficulty()){
+            case EASY:
+               difficultSelector.getSelectionModel().selectFirst();
+                break;
+            case MEDIUM:
+               difficultSelector.getSelectionModel().select(1);
+                break;
+            case HARD:
+                difficultSelector.getSelectionModel().select(2);
+                break;
+            case INSANE:
+                difficultSelector.getSelectionModel().select(3);
+                break;
+        }
 
         gameOptions.getChildren().addAll(gameTimer,difficultSelector,flaggedLabel);
 

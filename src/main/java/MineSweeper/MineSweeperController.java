@@ -81,6 +81,7 @@ public class MineSweeperController {
         this.labels = theView.getLabels();
         this.rects = theView.getRects();
         this.cells = game.getCells();
+        this.currentDifficulty = game.getTheDifficulty();
 
 
 
@@ -145,18 +146,22 @@ public class MineSweeperController {
             switch(difficulty){
                 case "EASY":
                     currentDifficulty = DIFFICULTY.EASY;
+                    main.setToEasy();
 
                     break;
                 case "MEDIUM":
                     currentDifficulty = DIFFICULTY.MEDIUM;
+                    main.setToMedium();
                     System.out.println("medium");
                     break;
                 case "HARD":
                     currentDifficulty = DIFFICULTY.HARD;
+                    main.setToHard();
                     System.out.println("hard");
                     break;
                 case "INSANE":
                     currentDifficulty = DIFFICULTY.INSANE;
+                    main.setToInsane();
                     System.out.println("insane");
                     break;
             }
@@ -233,7 +238,7 @@ public class MineSweeperController {
 
             if (defusedCount == game.getNUM_BOMBS()){
 
-                endGamePopUp = new EndGamePopUp(main,"Winner!");
+                endGamePopUp = new EndGamePopUp(main,"Winner!", currentDifficulty);
                 endGamePopUp.show();
 
             }
@@ -261,7 +266,7 @@ public class MineSweeperController {
 
         if (!game.playerMove(finalR, finalC, false, !hasClicked)){
 
-            endGamePopUp = new EndGamePopUp(main,"GameOver!");
+            endGamePopUp = new EndGamePopUp(main,"GameOver!", currentDifficulty);
             endGamePopUp.show();
 
            // main.resetGame();

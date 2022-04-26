@@ -39,12 +39,14 @@ public class EndGamePopUp extends Stage {
 
     private final Button playAgainBtn;
     private final Label gameOverMsg;
+    private DIFFICULTY currentDiff;
 
     MineSweeperMain main;
 
-    public EndGamePopUp(MineSweeperMain main,String message) {
+    public EndGamePopUp(MineSweeperMain main,String message, DIFFICULTY currentDiff) {
         super();
         this.main = main;
+        this.currentDiff = currentDiff;
 
         this.setTitle(message);
         this.setResizable(false);
@@ -62,9 +64,29 @@ public class EndGamePopUp extends Stage {
 
         playAgainBtn.setOnAction(event -> {
 
+
+            if (this.currentDiff == null){
+               this.currentDiff = DIFFICULTY.EASY;
+            }
+
+            switch(this.currentDiff){
+                case EASY:
+                    main.setToEasy();
+                    break;
+                case MEDIUM:
+                    main.setToMedium();
+                    break;
+                case HARD:
+                    main.setToHard();
+                    break;
+                case INSANE:
+                    main.setToInsane();
+                    break;
+
+            }
+
             main.resetGame();
             this.close();
-
 
         });
 
@@ -91,6 +113,10 @@ public class EndGamePopUp extends Stage {
 
         Scene s = new Scene(root);
         this.setScene(s);
+    }
+
+    private void handleCurrentDiff(){
+
     }
 
 }

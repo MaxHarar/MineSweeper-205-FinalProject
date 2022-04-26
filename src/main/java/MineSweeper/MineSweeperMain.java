@@ -26,14 +26,37 @@ public class MineSweeperMain extends Application {
     private Stage primaryStage;
     private Game game;
 
+    private MineSweeperView theEasyView;
+    private MineSweeperController theEasyController;
+    private Game gameEasy;
+
+    private MineSweeperView theMediumView;
+    private MineSweeperController theMediumController;
+    private Game gameMedium;
+
+    private MineSweeperView theHardView;
+    private MineSweeperController theHardController;
+    private Game gameHard;
+
+    private MineSweeperView theInsaneView;
+    private MineSweeperController theInsaneController;
+    private Game gameInsane;
+
+
 
 
     @Override
     public void init() throws Exception{
         super.init();
+
         game = new Game(DIFFICULTY.EASY);
         this.theView = new MineSweeperView(this.game);
         this.theController = new MineSweeperController(this.theView, this.game, this);
+
+        initEasyDiff();
+        initMediumDiff();
+        initHardDiff();
+        initInsaneDiff();
 
     }
 
@@ -41,6 +64,8 @@ public class MineSweeperMain extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Scene scene = new Scene(theView.getRoot());
+
+
         try {
             scene.getStylesheets().add(
                     Objects.requireNonNull(getClass().getResource("/MineSweeperStyle.css"))
@@ -58,12 +83,81 @@ public class MineSweeperMain extends Application {
 
     public void resetGame(){
         try {
-            init();
+
             start(primaryStage);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+    private void initEasyDiff(){
+        this.gameEasy = new Game(DIFFICULTY.EASY);
+        this.theEasyView = new MineSweeperView(this.gameEasy);
+        this.theEasyController = new MineSweeperController(this.theEasyView,this.gameEasy,this);
+
+    }
+
+    private void initMediumDiff(){
+
+        this.gameMedium = new Game(DIFFICULTY.MEDIUM);
+        this.theMediumView = new MineSweeperView(this.gameMedium);
+        this.theMediumController = new MineSweeperController(this.theMediumView,this.gameMedium,this);
+
+    }
+
+    private void initHardDiff(){
+        this.gameHard = new Game(DIFFICULTY.HARD);
+        this.theHardView = new MineSweeperView(this.gameHard);
+        this.theHardController = new MineSweeperController(this.theHardView,this.gameHard,this);
+    }
+    private void initInsaneDiff(){
+        this.gameInsane = new Game(DIFFICULTY.INSANE);
+        this.theInsaneView = new MineSweeperView(this.gameInsane);
+        this.theInsaneController = new MineSweeperController(this.theInsaneView, this.gameInsane, this);
+    }
+
+    public void setToEasy(){
+
+
+        initEasyDiff();
+        this.game = this.gameEasy;
+        this.theView = this.theEasyView;
+        this.theController = this.theEasyController;
+        resetGame();
+
+    }
+
+    public void setToMedium(){
+
+
+        initMediumDiff();
+        this.game = this.gameMedium;
+        this.theView = this.theMediumView;
+        this.theController = this.theMediumController;
+        resetGame();
+
+
+    }
+
+    public void setToHard(){
+
+        initHardDiff();
+        this.game = this.gameHard;
+        this.theView = this.theHardView;
+        this.theController = this.theHardController;
+        resetGame();
+    }
+
+    public void setToInsane(){
+
+        initInsaneDiff();
+        this.game = this.gameInsane;
+        this.theView = this.theInsaneView;
+        this.theController = this.theInsaneController;
+        resetGame();
+    }
+
 
     public static void main(String[] args) {
         launch(args);
