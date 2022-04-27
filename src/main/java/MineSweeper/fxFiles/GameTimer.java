@@ -9,7 +9,7 @@
  * Class: Timer
  * Description:
  ******************************************/
-package MineSweeper;
+package MineSweeper.fxFiles;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -43,5 +43,10 @@ public class GameTimer extends Label {
         int s = seconds%60;
         String time = String.format("%s:%s", "" + seconds/60, (s > 9) ? "" + s : "0" + s);
         this.setText(time);
+    }
+
+    int getTime(){
+
+        return seconds;
     }
 }

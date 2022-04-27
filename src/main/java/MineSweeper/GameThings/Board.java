@@ -14,12 +14,12 @@
  *
  *
  *****************************************/
-package MineSweeper;
+package MineSweeper.GameThings;
 
 
+import MineSweeper.GameThings.Cell;
 import lombok.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
