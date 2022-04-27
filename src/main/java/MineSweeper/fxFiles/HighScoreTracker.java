@@ -47,19 +47,8 @@ public class HighScoreTracker extends Label {
         List<Integer> scores = getIntegerListfromStringList( setUpAndTrimData(allScores, currentDifficulty.getStringName() + "Time"));
         Queue<String> playersQueue = getStringQueue(players);
 
-
-
-
-
-
         this.setFont(new Font(20));
         this.setText("Fastest Time: Set by: ");
-        System.out.println(makeOrderedString(scores,playersQueue));
-
-
-
-
-
     }
 
     private static Queue<String> getStringQueue(List<String> tempStrings) {
@@ -69,10 +58,6 @@ public class HighScoreTracker extends Label {
     private static Queue<Integer> getIntQueue(List<Integer> tempInts) {
         return new LinkedList<>(tempInts);
     }
-
-
-
-
 
     public static DataFrame readInFile(String fileName, Character splitter) throws IOException, URISyntaxException {
 
@@ -86,8 +71,6 @@ public class HighScoreTracker extends Label {
 
 
         return Read.csv(p, format);
-
-
     }
 
     private static List<String> setUpAndTrimData(DataFrame data, String thefield){
@@ -95,8 +78,6 @@ public class HighScoreTracker extends Label {
        return  data.stream()
                        .map(tuple -> tuple.getString(thefield))
                        .collect(Collectors.toList());
-
-
     }
 
     private static List<String> getStringFromDataFrame(DataFrame tempDF, String theField) {
@@ -135,15 +116,10 @@ public class HighScoreTracker extends Label {
         Map<Integer,String> tempMap = new HashMap<>();
         StringBuilder theOrderedString = new StringBuilder("Rank Time Name\n");
 
-        System.out.println(integerList.toString());
-        System.out.println(stringQueue.toString());
-
-
         for (Integer ints : integerList) {
             tempMap.put(ints,stringQueue.remove());
         }
 
-        System.out.println(tempMap);
         Collections.sort(integerList);
         Queue<Integer> integerQueue = getIntQueue(integerList);
 

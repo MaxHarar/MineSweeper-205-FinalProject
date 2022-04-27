@@ -30,7 +30,6 @@ public class Board {
     /** all cells on the board */
     private Cell[][] cells;
 
-
     public List<Cell> getVisited() {
         return visited;
     }
@@ -147,14 +146,12 @@ public class Board {
                 cells[r][c].setHasBomb(true);
                 initNeighbors(r,c);
                 bombCount++;
-                System.out.println("bomb count "+bombCount);
             }
         }
     }
 
     private int distanceTo(Cell cell1, Cell cell2){
         int val = (int)Math.sqrt(Math.pow(cell1.getRow() - cell2.getRow(),2) + Math.pow(cell1.getColumn() - cell2.getColumn(),2));
-       // System.out.println(val);
         return val;
     }
 
