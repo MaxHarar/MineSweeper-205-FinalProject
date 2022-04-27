@@ -47,9 +47,8 @@ public class Game {
         BOARD_COLS = theDifficulty.getColumn();
         NUM_BOMBS = theDifficulty.getNumOfBombs();
 
-
         startGame();
-        printBoard(false);
+        //printBoard(false);
         //recursionTest();
     }
 

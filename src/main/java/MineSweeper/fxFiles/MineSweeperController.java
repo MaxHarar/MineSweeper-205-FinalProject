@@ -102,7 +102,6 @@ public class MineSweeperController {
         }
 
         theView.getTopBarRect().widthProperty().bind(theView.getRectGrid().maxWidthProperty());
-        System.out.println(theView.getRectGrid().maxWidthProperty().getValue());
         theView.getTopBarRect().setHeight(40);
 
 
@@ -167,7 +166,6 @@ public class MineSweeperController {
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("medium");
                     break;
                 case "HARD":
                     currentDifficulty = DIFFICULTY.HARD;
@@ -178,7 +176,6 @@ public class MineSweeperController {
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("hard");
                     break;
                 case "INSANE":
                     currentDifficulty = DIFFICULTY.INSANE;
@@ -189,7 +186,6 @@ public class MineSweeperController {
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("insane");
                     break;
             }
            // this.game = new Game(currentDifficulty);
@@ -254,29 +250,14 @@ public class MineSweeperController {
             flaggedCount++;
             flaggedText.setValue("Flags Remaining: " + (this.game.getNUM_BOMBS() - flaggedCount));
 
-           // System.out.println(flaggedCount);
-
             if(cells[finalR][finalC].isHasBomb()){
                 defusedCount++;
             }
 
-            System.out.println(defusedCount);
-
-
             if (defusedCount == game.getNUM_BOMBS()){
-
                 endGamePopUp = new EndGamePopUp(main,"Winner!", currentDifficulty);
                 endGamePopUp.show();
-                System.out.println("Time: " + gameTimer.getTime());
-
             }
-
-
-
-
-
-
-
         }
     }
 
@@ -291,14 +272,10 @@ public class MineSweeperController {
 
         if (cells[finalR][finalC].isFlagged()) return;
 
-
         if (!game.playerMove(finalR, finalC, false, !hasClicked)){
 
             endGamePopUp = new EndGamePopUp(main,"GameOver!", currentDifficulty);
             endGamePopUp.show();
-            System.out.println("Time: " + gameTimer.getTime());
-
-           // main.resetGame();
         }
 
 
@@ -310,7 +287,5 @@ public class MineSweeperController {
                 labels[cell.getRow()][cell.getColumn()].getStyleClass().add("exploredTileLight");
             }
         }
-
-        game.printBoard(true);
     }
 }
