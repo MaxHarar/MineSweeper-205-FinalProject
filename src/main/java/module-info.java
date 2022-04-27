@@ -1,8 +1,6 @@
 module csci205_FinalProject {
 
-
-
-    requires  lombok;
+    requires lombok;
     requires java.desktop;
     requires java.sql;
     requires javafx.graphics;
@@ -15,7 +13,6 @@ module csci205_FinalProject {
     requires smile.data;
     requires commons.csv;
     requires org.apache.logging.log4j;
-
 
     exports MineSweeper;
     exports main;

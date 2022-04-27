@@ -46,9 +46,6 @@ public class MineSweeperMain extends Application {
     private MineSweeperController theInsaneController;
     private Game gameInsane;
 
-
-
-
     @Override
     public void init() throws Exception{
         super.init();
@@ -61,12 +58,10 @@ public class MineSweeperMain extends Application {
         initMediumDiff();
         initHardDiff();
         initInsaneDiff();
-
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         Scene scene = new Scene(theView.getRoot());
 
 
@@ -87,27 +82,22 @@ public class MineSweeperMain extends Application {
 
     public void resetGame(){
         try {
-
             start(primaryStage);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
     private void initEasyDiff() throws IOException, URISyntaxException {
         this.gameEasy = new Game(DIFFICULTY.EASY);
         this.theEasyView = new MineSweeperView(this.gameEasy);
         this.theEasyController = new MineSweeperController(this.theEasyView,this.gameEasy,this);
-
     }
 
     private void initMediumDiff() throws IOException, URISyntaxException {
-
         this.gameMedium = new Game(DIFFICULTY.MEDIUM);
         this.theMediumView = new MineSweeperView(this.gameMedium);
         this.theMediumController = new MineSweeperController(this.theMediumView,this.gameMedium,this);
-
     }
 
     private void initHardDiff() throws IOException, URISyntaxException {
@@ -122,30 +112,22 @@ public class MineSweeperMain extends Application {
     }
 
     public void setToEasy() throws IOException, URISyntaxException {
-
-
         initEasyDiff();
         this.game = this.gameEasy;
         this.theView = this.theEasyView;
         this.theController = this.theEasyController;
         resetGame();
-
     }
 
     public void setToMedium() throws IOException, URISyntaxException {
-
-
         initMediumDiff();
         this.game = this.gameMedium;
         this.theView = this.theMediumView;
         this.theController = this.theMediumController;
         resetGame();
-
-
     }
 
     public void setToHard() throws IOException, URISyntaxException {
-
         initHardDiff();
         this.game = this.gameHard;
         this.theView = this.theHardView;
@@ -154,7 +136,6 @@ public class MineSweeperMain extends Application {
     }
 
     public void setToInsane() throws IOException, URISyntaxException {
-
         initInsaneDiff();
         this.game = this.gameInsane;
         this.theView = this.theInsaneView;

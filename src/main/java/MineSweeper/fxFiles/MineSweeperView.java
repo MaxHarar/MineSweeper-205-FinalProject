@@ -214,14 +214,18 @@ public class MineSweeperView {
         int counter = 0;
         for (int r = 0; r < game.getRowCount(); r++){
             for (int c = 0; c < game.getColCount(); c++){
-                if (counter %2 == 0) {
-                    labels[r][c].getStyleClass().add("initTile");
-                    this.cells[r][c].setDarkTile(false);
-                }else{
-                    labels[r][c].getStyleClass().add("initTileDark");
-                    this.cells[r][c].setDarkTile(true);
+                if (r == 0 || r == game.getRowCount() - 1 || c == 0 || c == game.getColCount() - 1){
+                    labels[r][c].getStyleClass().add("borderTile");
+                }else {
+                    if (counter % 2 == 0) {
+                        labels[r][c].getStyleClass().add("initTile");
+                        this.cells[r][c].setDarkTile(false);
+                    } else {
+                        labels[r][c].getStyleClass().add("initTileDark");
+                        this.cells[r][c].setDarkTile(true);
+                    }
+                    counter++;
                 }
-                counter++;
             }
         }
     }
