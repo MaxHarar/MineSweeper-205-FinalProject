@@ -9,24 +9,20 @@
  * Class: MineSweeperController
  * Description:
  ******************************************/
-package MineSweeper;
+package MineSweeper.fxFiles;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleBooleanProperty;
+import MineSweeper.GameThings.Cell;
+import MineSweeper.GameThings.Game;
+import MineSweeper.MineSweeperMain;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.ls.LSOutput;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 
 /**
@@ -66,6 +62,8 @@ public class MineSweeperController {
 
     private EndGamePopUp endGamePopUp;
 
+    private GameTimer gameTimer;
+
 
     /**
      * MineSweeper controller
@@ -82,6 +80,7 @@ public class MineSweeperController {
         this.rects = theView.getRects();
         this.cells = game.getCells();
         this.currentDifficulty = game.getTheDifficulty();
+        this.gameTimer = theView.getGameTimer();
 
 
 
@@ -129,7 +128,11 @@ public class MineSweeperController {
                 int finalR = r;
                 int finalC = c;
                 labels[r][c].setOnMouseClicked(event -> {
-                    setLabelHandler(finalR, finalC, event);
+                    try {
+                        setLabelHandler(finalR, finalC, event);
+                    } catch (IOException | URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                 });
             }
         }
@@ -146,22 +149,46 @@ public class MineSweeperController {
             switch(difficulty){
                 case "EASY":
                     currentDifficulty = DIFFICULTY.EASY;
-                    main.setToEasy();
+                    try {
+                        main.setToEasy();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
 
                     break;
                 case "MEDIUM":
                     currentDifficulty = DIFFICULTY.MEDIUM;
-                    main.setToMedium();
+                    try {
+                        main.setToMedium();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println("medium");
                     break;
                 case "HARD":
                     currentDifficulty = DIFFICULTY.HARD;
-                    main.setToHard();
+                    try {
+                        main.setToHard();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println("hard");
                     break;
                 case "INSANE":
                     currentDifficulty = DIFFICULTY.INSANE;
-                    main.setToInsane();
+                    try {
+                        main.setToInsane();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println("insane");
                     break;
             }
@@ -175,7 +202,7 @@ public class MineSweeperController {
      * @param finalC - the column
      * @param event - MouseEvent
      */
-    private void setLabelHandler(int finalR, int finalC, MouseEvent event) {
+    private void setLabelHandler(int finalR, int finalC, MouseEvent event) throws IOException, URISyntaxException {
         if(event.getButton() == MouseButton.PRIMARY) {
             onLeftClick(finalR, finalC);
             hasClicked = true;
@@ -189,7 +216,7 @@ public class MineSweeperController {
      * @param finalR - row
      * @param finalC - column
      */
-    private void onRightClick(int finalR, int finalC) {
+    private void onRightClick(int finalR, int finalC) throws IOException, URISyntaxException {
         if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged()) return;
 
         if (cells[finalR][finalC].isFlagged()){
@@ -240,6 +267,7 @@ public class MineSweeperController {
 
                 endGamePopUp = new EndGamePopUp(main,"Winner!", currentDifficulty);
                 endGamePopUp.show();
+                System.out.println("Time: " + gameTimer.getTime());
 
             }
 
@@ -259,7 +287,7 @@ public class MineSweeperController {
      * @param finalR - the row
      * @param finalC - column
      */
-    private void onLeftClick(int finalR, int finalC) {
+    private void onLeftClick(int finalR, int finalC) throws IOException, URISyntaxException {
 
         if (cells[finalR][finalC].isFlagged()) return;
 
@@ -268,6 +296,7 @@ public class MineSweeperController {
 
             endGamePopUp = new EndGamePopUp(main,"GameOver!", currentDifficulty);
             endGamePopUp.show();
+            System.out.println("Time: " + gameTimer.getTime());
 
            // main.resetGame();
         }

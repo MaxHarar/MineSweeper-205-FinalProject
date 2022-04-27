@@ -11,12 +11,16 @@
  ******************************************/
 package MineSweeper;
 
+import MineSweeper.GameThings.Game;
+import MineSweeper.fxFiles.DIFFICULTY;
+import MineSweeper.fxFiles.MineSweeperController;
+import MineSweeper.fxFiles.MineSweeperView;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class MineSweeperMain extends Application {
@@ -91,14 +95,14 @@ public class MineSweeperMain extends Application {
     }
 
 
-    private void initEasyDiff(){
+    private void initEasyDiff() throws IOException, URISyntaxException {
         this.gameEasy = new Game(DIFFICULTY.EASY);
         this.theEasyView = new MineSweeperView(this.gameEasy);
         this.theEasyController = new MineSweeperController(this.theEasyView,this.gameEasy,this);
 
     }
 
-    private void initMediumDiff(){
+    private void initMediumDiff() throws IOException, URISyntaxException {
 
         this.gameMedium = new Game(DIFFICULTY.MEDIUM);
         this.theMediumView = new MineSweeperView(this.gameMedium);
@@ -106,18 +110,18 @@ public class MineSweeperMain extends Application {
 
     }
 
-    private void initHardDiff(){
+    private void initHardDiff() throws IOException, URISyntaxException {
         this.gameHard = new Game(DIFFICULTY.HARD);
         this.theHardView = new MineSweeperView(this.gameHard);
         this.theHardController = new MineSweeperController(this.theHardView,this.gameHard,this);
     }
-    private void initInsaneDiff(){
+    private void initInsaneDiff() throws IOException, URISyntaxException {
         this.gameInsane = new Game(DIFFICULTY.INSANE);
         this.theInsaneView = new MineSweeperView(this.gameInsane);
         this.theInsaneController = new MineSweeperController(this.theInsaneView, this.gameInsane, this);
     }
 
-    public void setToEasy(){
+    public void setToEasy() throws IOException, URISyntaxException {
 
 
         initEasyDiff();
@@ -128,7 +132,7 @@ public class MineSweeperMain extends Application {
 
     }
 
-    public void setToMedium(){
+    public void setToMedium() throws IOException, URISyntaxException {
 
 
         initMediumDiff();
@@ -140,7 +144,7 @@ public class MineSweeperMain extends Application {
 
     }
 
-    public void setToHard(){
+    public void setToHard() throws IOException, URISyntaxException {
 
         initHardDiff();
         this.game = this.gameHard;
@@ -149,7 +153,7 @@ public class MineSweeperMain extends Application {
         resetGame();
     }
 
-    public void setToInsane(){
+    public void setToInsane() throws IOException, URISyntaxException {
 
         initInsaneDiff();
         this.game = this.gameInsane;

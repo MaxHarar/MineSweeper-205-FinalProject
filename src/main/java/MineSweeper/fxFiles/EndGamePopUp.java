@@ -14,8 +14,9 @@
  *
  *
  *****************************************/
-package MineSweeper;
+package MineSweeper.fxFiles;
 
+import MineSweeper.MineSweeperMain;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,10 +25,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 public class EndGamePopUp extends Stage {
 
 
     private final Button exitBtn;
+
+    private HighScoreTracker test;
 
     public Button getExitBtn() {
         return exitBtn;
@@ -43,7 +49,7 @@ public class EndGamePopUp extends Stage {
 
     MineSweeperMain main;
 
-    public EndGamePopUp(MineSweeperMain main,String message, DIFFICULTY currentDiff) {
+    public EndGamePopUp(MineSweeperMain main,String message, DIFFICULTY currentDiff) throws IOException, URISyntaxException {
         super();
         this.main = main;
         this.currentDiff = currentDiff;
@@ -60,6 +66,7 @@ public class EndGamePopUp extends Stage {
         gameOverMsg = new Label(message);
         playAgainBtn = new Button("Play again");
         exitBtn = new Button("Exit");
+        this.test = new HighScoreTracker(currentDiff);
 
 
         playAgainBtn.setOnAction(event -> {
@@ -71,16 +78,32 @@ public class EndGamePopUp extends Stage {
 
             switch(this.currentDiff){
                 case EASY:
-                    main.setToEasy();
+                    try {
+                        main.setToEasy();
+                    } catch (IOException | URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case MEDIUM:
-                    main.setToMedium();
+                    try {
+                        main.setToMedium();
+                    } catch (IOException | URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case HARD:
-                    main.setToHard();
+                    try {
+                        main.setToHard();
+                    } catch (IOException | URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case INSANE:
-                    main.setToInsane();
+                    try {
+                        main.setToInsane();
+                    } catch (IOException | URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                     break;
 
             }
@@ -103,7 +126,7 @@ public class EndGamePopUp extends Stage {
 
 
 
-        root.getChildren().addAll(gameOverMsg, playAgainBtn, exitBtn);
+        root.getChildren().addAll(gameOverMsg, test, playAgainBtn, exitBtn);
 
 
 

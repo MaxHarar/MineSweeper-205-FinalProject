@@ -14,7 +14,7 @@
  *
  *
  *****************************************/
-package MineSweeper;
+package MineSweeper.GameThings;
 
 import javafx.beans.property.SimpleStringProperty;
 import lombok.*;

@@ -9,10 +9,11 @@
  * Class: Game
  * Description:
  ******************************************/
-package MineSweeper;
+package MineSweeper.GameThings;
+
+import MineSweeper.fxFiles.DIFFICULTY;
 
 import java.util.List;
-import java.util.Scanner;
 
 
 public class Game {
