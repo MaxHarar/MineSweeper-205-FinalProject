@@ -128,7 +128,7 @@ public class Board {
     private void initCell(int row, int column) {
         if (row == 0 || column == 0 || row == this.cells.length-1 || column == this.cells[row].length-1 ){
             this.cells[row][column].setBorder(true);
-            this.cells[row][column].setDisplayChar('-');
+            this.cells[row][column].setDisplayChar(' ');
             this.cells[row][column].setVisible(true);
 
         }else{

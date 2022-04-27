@@ -7,8 +7,6 @@
     -fx-font-weight: Bold;
     -fx-font-size: 18;
     -fx-background-color: Green;
-
-
 }
 
 .initTileDark{
@@ -20,6 +18,17 @@
     -fx-font-weight: Bold;
     -fx-font-size: 18;
     -fx-background-color: DarkGreen;
+}
+
+.borderTile{
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-font-family: Verdana;
+    -fx-font-weight: Bold;
+    -fx-font-size: 18;
+    -fx-background-color: LightBlue;
 }
 
 .exploredTile{
