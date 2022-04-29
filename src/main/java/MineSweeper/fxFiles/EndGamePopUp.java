@@ -33,8 +33,6 @@ public class EndGamePopUp extends Stage {
 
     private final Button exitBtn;
 
-    private HighScoreTracker test;
-
     public Button getExitBtn() {
         return exitBtn;
     }
@@ -59,15 +57,10 @@ public class EndGamePopUp extends Stage {
 
         this.initModality(Modality.APPLICATION_MODAL);
 
-
-
-
         VBox root = new VBox();
         gameOverMsg = new Label(message);
         playAgainBtn = new Button("Play again");
         exitBtn = new Button("Exit");
-        this.test = new HighScoreTracker(currentDiff);
-
 
         playAgainBtn.setOnAction(event -> {
 
@@ -126,7 +119,7 @@ public class EndGamePopUp extends Stage {
 
 
 
-        root.getChildren().addAll(gameOverMsg, test, playAgainBtn, exitBtn);
+        root.getChildren().addAll(gameOverMsg, playAgainBtn, exitBtn);
 
 
 

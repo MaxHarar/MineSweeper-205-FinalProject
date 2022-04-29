@@ -8,7 +8,7 @@ public enum DIFFICULTY {
         EASY(14,19,18,"Easy"),
         MEDIUM(18,23,40,"Medium"),
         HARD(26,33,100,"Hard"),
-        INSANE(26, 33, 400,"Insane");
+        INSANE(26, 33, 200,"Insane");
 
 
     private final int row;
