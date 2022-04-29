@@ -269,7 +269,6 @@ public class MineSweeperController {
      * @param finalC - column
      */
     private void onLeftClick(int finalR, int finalC) throws IOException, URISyntaxException {
-
         if (cells[finalR][finalC].isFlagged()) return;
 
         if (!game.playerMove(finalR, finalC, false, !hasClicked)){
@@ -277,7 +276,6 @@ public class MineSweeperController {
             endGamePopUp = new EndGamePopUp(main,"GameOver!", currentDifficulty);
             endGamePopUp.show();
         }
-
 
         for (Cell cell : game.getVisitedCells()) {
 

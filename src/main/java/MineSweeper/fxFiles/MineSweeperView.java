@@ -56,11 +56,6 @@ public class MineSweeperView {
 
     private Label endGameLabel;
 
-    private HighScoreTracker test;
-
-
-
-
     private ComboBox<String> difficultSelector;
 
     private HBox gameOptions;
