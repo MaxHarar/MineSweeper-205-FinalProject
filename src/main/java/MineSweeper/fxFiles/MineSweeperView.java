@@ -35,8 +35,6 @@ public class MineSweeperView {
     private VBox root;
     /**The game the player is playing*/
     private final Game game;
-    /**the topBar HBox*/
-    private HBox topBar;
 
     private GameTimer gameTimer;
 
@@ -71,6 +69,8 @@ public class MineSweeperView {
     }
 
 
+
+
     /**
      * The Javafx game creation
      * @param game - Game Object
@@ -98,7 +98,8 @@ public class MineSweeperView {
      */
     private void initSceneGraph() throws IOException, URISyntaxException {
         root = new VBox();
-        topBar = new HBox();
+        /**the topBar HBox*/
+        HBox topBar = new HBox();
         topBarRect = new Rectangle();
         gameOptions = new HBox();
 
@@ -112,11 +113,13 @@ public class MineSweeperView {
         this.cells = game.getCells();
     }
 
-    private StackPane getTopBarStackPane() throws IOException, URISyntaxException {
+    private StackPane getTopBarStackPane() {
         this.gameTimer = new GameTimer();
+        gameTimer.getStyleClass().add("TopPane");
         gameTimer.start();
 
         flaggedLabel = new Label("temp");
+        flaggedLabel.getStyleClass().add("TopPane");
 
         difficultSelector = new ComboBox<>();
 
@@ -128,16 +131,20 @@ public class MineSweeperView {
         );
 
         switch (game.getTheDifficulty()) {
-            case EASY -> difficultSelector.getSelectionModel().selectFirst();
-            case MEDIUM -> difficultSelector.getSelectionModel().select(1);
-            case HARD -> difficultSelector.getSelectionModel().select(2);
-            case INSANE -> difficultSelector.getSelectionModel().select(3);
+            case EASY: difficultSelector.getSelectionModel().selectFirst();
+            break;
+            case MEDIUM: difficultSelector.getSelectionModel().select(1);
+            break;
+            case HARD: difficultSelector.getSelectionModel().select(2);
+            break;
+            case INSANE: difficultSelector.getSelectionModel().select(3);
+            break;
         }
 
         colorMode = new Button("Dark Mode");
 
         gameOptions.getChildren().addAll(gameTimer,difficultSelector,flaggedLabel, colorMode);
-
+        gameOptions.getStyleClass().add("TopPane");
         return new StackPane(topBarRect, gameOptions);
     }
 

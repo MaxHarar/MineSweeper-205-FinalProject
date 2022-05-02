@@ -30,21 +30,7 @@ public class MineSweeperMain extends Application {
     private Stage primaryStage;
     private Game game;
 
-    private MineSweeperView theEasyView;
-    private MineSweeperController theEasyController;
-    private Game gameEasy;
 
-    private MineSweeperView theMediumView;
-    private MineSweeperController theMediumController;
-    private Game gameMedium;
-
-    private MineSweeperView theHardView;
-    private MineSweeperController theHardController;
-    private Game gameHard;
-
-    private MineSweeperView theInsaneView;
-    private MineSweeperController theInsaneController;
-    private Game gameInsane;
     private Scene scene;
 
     @Override
@@ -63,6 +49,9 @@ public class MineSweeperMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+
+
         scene = new Scene(theView.getRoot());
 
         try {

@@ -18,6 +18,7 @@ package MineSweeper.fxFiles;
 
 import MineSweeper.MineSweeperMain;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,10 +28,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 public class EndGamePopUp extends Stage {
 
     private final Button exitBtn;
+    private final Label gameOverMsg;
+    private final Scene s;
 
     public Button getExitBtn() {
         return exitBtn;
@@ -56,13 +60,42 @@ public class EndGamePopUp extends Stage {
         this.initModality(Modality.APPLICATION_MODAL);
 
         VBox root = new VBox();
-        Label gameOverMsg = new Label(message);
+        gameOverMsg = new Label(message);
         playAgainBtn = new Button("Play again");
         exitBtn = new Button("Exit");
 
+
+
+
+        root.getStyleClass().add("EndGamePopUpRoot");
+
+
+      initHandlers();
+
+        root.getChildren().addAll(gameOverMsg, playAgainBtn, exitBtn);
+
+
+        s = new Scene(root);
+
+        try {
+            s.getStylesheets().add(
+                    Objects.requireNonNull(getClass().getResource("/MineSweeperStyleLight.css"))
+                            .toExternalForm());
+        } catch(NullPointerException e){
+            System.out.println("NullPointer Exception ");
+        }
+        this.setScene(s);
+    }
+
+    private void handleCurrentDiff(){
+
+    }
+
+    private void initHandlers(){
+
         playAgainBtn.setOnAction(event -> {
             if (this.currentDiff == null){
-               this.currentDiff = DIFFICULTY.EASY;
+                this.currentDiff = DIFFICULTY.EASY;
             }else{
                 main.resetGame(currentDiff);
             }
@@ -75,14 +108,25 @@ public class EndGamePopUp extends Stage {
             System.exit(0);
 
         });
-
-        root.getChildren().addAll(gameOverMsg, playAgainBtn, exitBtn);
-
-        Scene s = new Scene(root);
-        this.setScene(s);
     }
 
-    private void handleCurrentDiff(){
+    public void initStyle(boolean isDark){
+
+        if (isDark){
+            try {
+                s.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/MineSweeperStyleDark.css"))
+                                .toExternalForm());
+            } catch(NullPointerException e){
+                System.out.println("NullPointer Exception ");
+            }
+        }
+
+
+        playAgainBtn.getStylesheets().add("EndGamePopUpButton");
+        exitBtn.getStylesheets().add("EndGamePopUpButton");
+        gameOverMsg.getStyleClass().add("EndGamePopUpLabel");
+
 
     }
 

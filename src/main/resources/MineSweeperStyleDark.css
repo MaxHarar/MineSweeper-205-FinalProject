@@ -56,6 +56,16 @@
     -fx-text-fill: #b5a1e1;
 }
 
+.TopPane{
+    -fx-background-color: #696969;
+    -fx-text-fill: #b5a1e1;
+    -fx-alignment: center;
+    -fx-font-weight: Bold;
+    -fx-font-size: 14;
+
+
+}
+
 
 .flaggedTile{
     -fx-pref-width: 20;
@@ -68,10 +78,30 @@
     -fx-background-color: #f50202;
 }
 
-.EndGamePopUp{
-    -fx-background-color: #312f2f;
-    -fx-pref-width: 120;
-    -fx-pref-height: 120;
+.EndGamePopUpRoot{
+
+    -fx-background-color:  #696969;
+    -fx-max-height: 250;
+    -fx-max-width: 100;
+    -fx-alignment: center;
+
+
 
 }
+
+.EndGamePopUpLabel{
+
+    -fx-text-fill: #000000;
+
+
+
+}
+
+.EndGamePopUpButton{
+
+    -fx-text-fill: #98c0f3;
+
+}
+
+
 
