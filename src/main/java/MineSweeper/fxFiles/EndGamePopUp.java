@@ -30,7 +30,6 @@ import java.net.URISyntaxException;
 
 public class EndGamePopUp extends Stage {
 
-
     private final Button exitBtn;
 
     public Button getExitBtn() {

@@ -140,26 +140,20 @@ public class MineSweeperController {
 
         theView.getDifficultSelector().valueProperty().addListener(event -> {
 
-            //Do not look at this
+            // We know this is sphagetti, but it works //////////////////////////
             String difficulty = event.toString();
             difficulty = difficulty.substring(difficulty.indexOf("value:") + 7);
             difficulty = difficulty.substring(0,difficulty.length()-1);
+            /////////////////////////////////////////////////////////////////////
 
-            switch(difficulty){
-                case "EASY": currentDifficulty = DIFFICULTY.EASY;
-                    break;
-                case "MEDIUM": currentDifficulty = DIFFICULTY.MEDIUM;
-                    break;
-                case "HARD": currentDifficulty = DIFFICULTY.HARD;
-                    break;
-                case "INSANE": currentDifficulty = DIFFICULTY.INSANE;
-                    break;
+            switch (difficulty) {
+                case "EASY" -> currentDifficulty = DIFFICULTY.EASY;
+                case "MEDIUM" -> currentDifficulty = DIFFICULTY.MEDIUM;
+                case "HARD" -> currentDifficulty = DIFFICULTY.HARD;
+                case "INSANE" -> currentDifficulty = DIFFICULTY.INSANE;
             }
             main.resetGame(currentDifficulty);
-           // this.game = new Game(currentDifficulty);
         });
-
-
 
         theView.getColorMode().setOnAction(event -> {
 
