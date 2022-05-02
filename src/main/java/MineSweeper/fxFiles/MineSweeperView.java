@@ -102,31 +102,19 @@ public class MineSweeperView {
         topBarRect = new Rectangle();
         gameOptions = new HBox();
 
-
-
         createGrid();
 
         StackPane sPane = getTopBarStackPane();
-
 
         topBar.getChildren().add(sPane);
         root.getChildren().add(topBar);
         root.getChildren().add(rectGrid);
         this.cells = game.getCells();
-
-
-
-
     }
-
-
 
     private StackPane getTopBarStackPane() throws IOException, URISyntaxException {
         this.gameTimer = new GameTimer();
         gameTimer.start();
-
-
-
 
         flaggedLabel = new Label("temp");
 
@@ -139,29 +127,16 @@ public class MineSweeperView {
                 "INSANE"
         );
 
-
-        switch(game.getTheDifficulty()){
-            case EASY:
-               difficultSelector.getSelectionModel().selectFirst();
-                break;
-            case MEDIUM:
-               difficultSelector.getSelectionModel().select(1);
-                break;
-            case HARD:
-                difficultSelector.getSelectionModel().select(2);
-                break;
-            case INSANE:
-                difficultSelector.getSelectionModel().select(3);
-                break;
+        switch (game.getTheDifficulty()) {
+            case EASY -> difficultSelector.getSelectionModel().selectFirst();
+            case MEDIUM -> difficultSelector.getSelectionModel().select(1);
+            case HARD -> difficultSelector.getSelectionModel().select(2);
+            case INSANE -> difficultSelector.getSelectionModel().select(3);
         }
 
         colorMode = new Button("Dark Mode");
 
-
         gameOptions.getChildren().addAll(gameTimer,difficultSelector,flaggedLabel, colorMode);
-
-
-
 
         return new StackPane(topBarRect, gameOptions);
     }
@@ -182,10 +157,6 @@ public class MineSweeperView {
                 rectGrid.add(sPane,c,r,1,1);
             }
         }
-    }
-
-    public void updateGrid(){
-
     }
 
     /**
