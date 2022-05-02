@@ -23,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 
 /**
@@ -32,22 +33,19 @@ import java.net.URISyntaxException;
 public class MineSweeperController {
 
     /**2D label array */
-    private Label[][] labels;
-
-    /**2D Rectangle array - here for color */
-    private Rectangle[][] rects;
+    private final Label[][] labels;
 
     /**2D Cell array */
-    private Cell[][] cells;
+    private final Cell[][] cells;
 
     /**Minesweeper View*/
-    private MineSweeperView theView;
+    private final MineSweeperView theView;
 
     /**The Game instance that the player is playing*/
-    private Game game;
+    private final Game game;
 
     /**The Main class for the javafx output*/
-    private MineSweeperMain main;
+    private final MineSweeperMain main;
 
     /**True if the player has made atleast one move*/
     private boolean hasClicked = false;
@@ -62,8 +60,7 @@ public class MineSweeperController {
 
     private EndGamePopUp endGamePopUp;
 
-    private GameTimer gameTimer;
-
+    private int counter;
 
     /**
      * MineSweeper controller
@@ -75,12 +72,15 @@ public class MineSweeperController {
         this.theView = view;
         this.game = game;
         this.main = main;
+        counter =  1;
 
         this.labels = theView.getLabels();
-        this.rects = theView.getRects();
+
+        /*2D Rectangle array - here for color */
+        Rectangle[][] rects = theView.getRects();
         this.cells = game.getCells();
         this.currentDifficulty = game.getTheDifficulty();
-        this.gameTimer = theView.getGameTimer();
+        GameTimer gameTimer = theView.getGameTimer();
 
 
 
@@ -150,9 +150,7 @@ public class MineSweeperController {
                     currentDifficulty = DIFFICULTY.EASY;
                     try {
                         main.setToEasy();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (URISyntaxException e) {
+                    } catch (IOException | URISyntaxException e) {
                         e.printStackTrace();
                     }
 
@@ -161,9 +159,7 @@ public class MineSweeperController {
                     currentDifficulty = DIFFICULTY.MEDIUM;
                     try {
                         main.setToMedium();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (URISyntaxException e) {
+                    } catch (IOException | URISyntaxException e) {
                         e.printStackTrace();
                     }
                     break;
@@ -171,9 +167,7 @@ public class MineSweeperController {
                     currentDifficulty = DIFFICULTY.HARD;
                     try {
                         main.setToHard();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (URISyntaxException e) {
+                    } catch (IOException | URISyntaxException e) {
                         e.printStackTrace();
                     }
                     break;
@@ -181,15 +175,43 @@ public class MineSweeperController {
                     currentDifficulty = DIFFICULTY.INSANE;
                     try {
                         main.setToInsane();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (URISyntaxException e) {
+                    } catch (IOException | URISyntaxException e) {
                         e.printStackTrace();
                     }
                     break;
             }
            // this.game = new Game(currentDifficulty);
         });
+
+
+
+        theView.getColorMode().setOnAction(event -> {
+
+            if (counter %2 ==0 ) {
+
+                main.getScene().getStylesheets().clear();
+                main.getScene().getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/MineSweeperStyleLight.css"))
+                                .toExternalForm());
+                theView.getColorMode().setText("Dark Mode");
+
+            }else{
+
+
+                main.getScene().getStylesheets().clear();
+                main.getScene().getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/MineSweeperStyleDark.css"))
+                                .toExternalForm());
+
+                theView.getColorMode().setText("Standard Mode");
+
+            }
+
+
+            counter++;
+        });
+
+
     }
 
     /**

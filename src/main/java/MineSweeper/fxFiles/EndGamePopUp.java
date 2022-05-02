@@ -42,7 +42,6 @@ public class EndGamePopUp extends Stage {
     }
 
     private final Button playAgainBtn;
-    private final Label gameOverMsg;
     private DIFFICULTY currentDiff;
 
     MineSweeperMain main;
@@ -58,7 +57,7 @@ public class EndGamePopUp extends Stage {
         this.initModality(Modality.APPLICATION_MODAL);
 
         VBox root = new VBox();
-        gameOverMsg = new Label(message);
+        Label gameOverMsg = new Label(message);
         playAgainBtn = new Button("Play again");
         exitBtn = new Button("Exit");
 
