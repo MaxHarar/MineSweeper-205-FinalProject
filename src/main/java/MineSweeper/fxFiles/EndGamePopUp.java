@@ -62,49 +62,13 @@ public class EndGamePopUp extends Stage {
         exitBtn = new Button("Exit");
 
         playAgainBtn.setOnAction(event -> {
-
-
             if (this.currentDiff == null){
                this.currentDiff = DIFFICULTY.EASY;
+            }else{
+                main.resetGame(currentDiff);
             }
-
-            switch(this.currentDiff){
-                case EASY:
-                    try {
-                        main.setToEasy();
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case MEDIUM:
-                    try {
-                        main.setToMedium();
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case HARD:
-                    try {
-                        main.setToHard();
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case INSANE:
-                    try {
-                        main.setToInsane();
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-
-            }
-
-            main.resetGame();
             this.close();
-
         });
-
 
         exitBtn.setOnAction(event -> {
 
@@ -113,18 +77,7 @@ public class EndGamePopUp extends Stage {
 
         });
 
-
-
-
-
-
         root.getChildren().addAll(gameOverMsg, playAgainBtn, exitBtn);
-
-
-
-
-
-
 
         Scene s = new Scene(root);
         this.setScene(s);

@@ -146,40 +146,16 @@ public class MineSweeperController {
             difficulty = difficulty.substring(0,difficulty.length()-1);
 
             switch(difficulty){
-                case "EASY":
-                    currentDifficulty = DIFFICULTY.EASY;
-                    try {
-                        main.setToEasy();
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
-
+                case "EASY": currentDifficulty = DIFFICULTY.EASY;
                     break;
-                case "MEDIUM":
-                    currentDifficulty = DIFFICULTY.MEDIUM;
-                    try {
-                        main.setToMedium();
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
+                case "MEDIUM": currentDifficulty = DIFFICULTY.MEDIUM;
                     break;
-                case "HARD":
-                    currentDifficulty = DIFFICULTY.HARD;
-                    try {
-                        main.setToHard();
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
+                case "HARD": currentDifficulty = DIFFICULTY.HARD;
                     break;
-                case "INSANE":
-                    currentDifficulty = DIFFICULTY.INSANE;
-                    try {
-                        main.setToInsane();
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
+                case "INSANE": currentDifficulty = DIFFICULTY.INSANE;
                     break;
             }
+            main.resetGame(currentDifficulty);
            // this.game = new Game(currentDifficulty);
         });
 
