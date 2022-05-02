@@ -52,6 +52,12 @@ public class MineSweeperController {
 
     private DIFFICULTY currentDifficulty;
 
+    public boolean isDark() {
+        return isDark;
+    }
+
+    private boolean isDark;
+
 
     private int defusedCount;
 
@@ -73,6 +79,7 @@ public class MineSweeperController {
         this.game = game;
         this.main = main;
         counter =  1;
+        isDark = false;
 
         this.labels = theView.getLabels();
 
@@ -147,10 +154,14 @@ public class MineSweeperController {
             /////////////////////////////////////////////////////////////////////
 
             switch (difficulty) {
-                case "EASY" -> currentDifficulty = DIFFICULTY.EASY;
-                case "MEDIUM" -> currentDifficulty = DIFFICULTY.MEDIUM;
-                case "HARD" -> currentDifficulty = DIFFICULTY.HARD;
-                case "INSANE" -> currentDifficulty = DIFFICULTY.INSANE;
+                case "EASY" : currentDifficulty = DIFFICULTY.EASY;
+                        break;
+                case "MEDIUM" : currentDifficulty = DIFFICULTY.MEDIUM;
+                        break;
+                case "HARD"  :currentDifficulty = DIFFICULTY.HARD;
+                        break;
+                case "INSANE" :currentDifficulty = DIFFICULTY.INSANE;
+                    break;
             }
             main.resetGame(currentDifficulty);
         });
@@ -164,6 +175,8 @@ public class MineSweeperController {
                         Objects.requireNonNull(getClass().getResource("/MineSweeperStyleLight.css"))
                                 .toExternalForm());
                 theView.getColorMode().setText("Dark Mode");
+                isDark = false;
+
 
             }else{
 
@@ -174,6 +187,7 @@ public class MineSweeperController {
                                 .toExternalForm());
 
                 theView.getColorMode().setText("Standard Mode");
+                isDark = true;
 
             }
 
@@ -247,7 +261,9 @@ public class MineSweeperController {
             }
 
             if (defusedCount == game.getNUM_BOMBS()){
+                theView.getGameTimer().stop();
                 endGamePopUp = new EndGamePopUp(main,"Winner!", currentDifficulty);
+                endGamePopUp.initStyle(isDark);
                 endGamePopUp.show();
             }
         }
@@ -264,8 +280,9 @@ public class MineSweeperController {
         if (cells[finalR][finalC].isFlagged()) return;
 
         if (!game.playerMove(finalR, finalC, false, !hasClicked)){
-
+             theView.getGameTimer().stop();
             endGamePopUp = new EndGamePopUp(main,"GameOver!", currentDifficulty);
+            endGamePopUp.initStyle(isDark);
             endGamePopUp.show();
         }
 
