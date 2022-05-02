@@ -1,0 +1,77 @@
+.initTile{
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-font-family: Verdana;
+    -fx-font-weight: Bold;
+    -fx-font-size: 18;
+    -fx-background-color: #343434;
+}
+
+.initTileDark{
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-font-family: Verdana;
+    -fx-font-weight: Bold;
+    -fx-font-size: 18;
+    -fx-background-color: #000000;
+}
+
+.borderTile{
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-font-family: Verdana;
+    -fx-font-weight: Bold;
+    -fx-font-size: 18;
+    -fx-background-color: #696969;
+}
+
+.exploredTile{
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-font-family: Verdana;
+    -fx-font-weight: Bold;
+    -fx-font-size: 18;
+    -fx-background-color: #002988;
+    -fx-text-fill: #b5a1e1;
+
+}
+
+.exploredTileLight{
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-font-family: Verdana;
+    -fx-font-weight: Bold;
+    -fx-font-size: 18;
+    -fx-background-color: #106473;
+    -fx-text-fill: #b5a1e1;
+}
+
+
+.flaggedTile{
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-font-family: Verdana;
+    -fx-font-weight: Bold;
+    -fx-font-size: 18;
+    -fx-background-color: #f50202;
+}
+
+.EndGamePopUp{
+    -fx-background-color: #312f2f;
+    -fx-pref-width: 120;
+    -fx-pref-height: 120;
+
+}
+

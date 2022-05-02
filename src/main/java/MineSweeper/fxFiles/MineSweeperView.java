@@ -15,6 +15,7 @@ import MineSweeper.GameThings.Cell;
 import MineSweeper.GameThings.Game;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -23,7 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Popup;
+
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -33,7 +34,7 @@ public class MineSweeperView {
     /**The root Vbox*/
     private VBox root;
     /**The game the player is playing*/
-    private Game game;
+    private final Game game;
     /**the topBar HBox*/
     private HBox topBar;
 
@@ -42,19 +43,16 @@ public class MineSweeperView {
     /**size of each grid element */
     public static final int gridSize = 20;
     /**Rectangle [][] used for color*/
-    private Rectangle[][] rects;
+    private final Rectangle[][] rects;
     /**labels - displayed to player */
-    private Label[][] labels;
+    private final Label[][] labels;
     /**The rectGrid on*/
-    private GridPane rectGrid;
+    private final GridPane rectGrid;
     /**THe topNar Rectangle, used to display timer and other gameStats*/
     private Rectangle topBarRect;
     /**The Cell[][] of the cells */
     private Cell[][] cells;
 
-    private Popup endGamePopUp;
-
-    private Label endGameLabel;
 
     private ComboBox<String> difficultSelector;
 
@@ -62,17 +60,16 @@ public class MineSweeperView {
 
     private Label flaggedLabel;
 
+    public Button getColorMode() {
+        return colorMode;
+    }
+
+    private Button colorMode;
+
     public Label getFlaggedLabel() {
         return flaggedLabel;
     }
 
-    public Popup getEndGamePopUp() {
-        return endGamePopUp;
-    }
-
-    public Label getEndGameLabel() {
-        return endGameLabel;
-    }
 
     /**
      * The Javafx game creation
@@ -91,7 +88,7 @@ public class MineSweeperView {
     public GameTimer getGameTimer(){return gameTimer; }
     public Rectangle[][] getRects(){ return rects; }
     public Label[][] getLabels(){ return labels; }
-    public HBox getTopBar() { return topBar; }
+
     public Rectangle getTopBarRect() { return topBarRect; }
     public VBox getRoot(){return root;}
     public ComboBox<? extends String> getDifficultSelector() { return difficultSelector; }
@@ -158,8 +155,13 @@ public class MineSweeperView {
                 break;
         }
 
+        colorMode = new Button("Dark Mode");
 
-        gameOptions.getChildren().addAll(gameTimer,difficultSelector,flaggedLabel);
+
+        gameOptions.getChildren().addAll(gameTimer,difficultSelector,flaggedLabel, colorMode);
+
+
+
 
         return new StackPane(topBarRect, gameOptions);
     }

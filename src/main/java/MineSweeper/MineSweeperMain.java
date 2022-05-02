@@ -45,6 +45,7 @@ public class MineSweeperMain extends Application {
     private MineSweeperView theInsaneView;
     private MineSweeperController theInsaneController;
     private Game gameInsane;
+    private Scene scene;
 
     @Override
     public void init() throws Exception{
@@ -60,14 +61,18 @@ public class MineSweeperMain extends Application {
         initInsaneDiff();
     }
 
+    public Scene getScene() {
+        return scene;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(theView.getRoot());
+        scene = new Scene(theView.getRoot());
 
 
         try {
             scene.getStylesheets().add(
-                    Objects.requireNonNull(getClass().getResource("/MineSweeperStyle.css"))
+                    Objects.requireNonNull(getClass().getResource("/MineSweeperStyleLight.css"))
                             .toExternalForm());
         } catch(NullPointerException e){
             System.out.println("NullPointer Exception ");

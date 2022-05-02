@@ -1,5 +1,0 @@
-EasyTime,EasyName,MediumTIme,MediumName,HardTime,HardName,InsaneTime,InsaneName
-3,Max,35,Max,31,Max,32,Max
-33,Tony,33,Max,32,Max,33,Max
-31,Maddie,32,Max,39,Max,34,Max
-20,John,31,Max,36,Max,35,Max
