@@ -19,7 +19,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
+
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 
 /**
- * The Mine Sweeper Controller - controls userinput and creates the bindings
+ * The Mine Sweeper Controller - controls user input and creates the bindings
  * and handlers
  */
 public class MineSweeperController {
@@ -51,10 +51,6 @@ public class MineSweeperController {
     private boolean hasClicked = false;
 
     private DIFFICULTY currentDifficulty;
-
-    public boolean isDark() {
-        return isDark;
-    }
 
     private boolean isDark;
 
@@ -83,11 +79,8 @@ public class MineSweeperController {
 
         this.labels = theView.getLabels();
 
-        /*2D Rectangle array - here for color */
-        Rectangle[][] rects = theView.getRects();
         this.cells = game.getCells();
         this.currentDifficulty = game.getTheDifficulty();
-        GameTimer gameTimer = theView.getGameTimer();
 
 
 
@@ -218,7 +211,7 @@ public class MineSweeperController {
      * @param finalR - row
      * @param finalC - column
      */
-    private void onRightClick(int finalR, int finalC) throws IOException, URISyntaxException {
+    private void onRightClick(int finalR, int finalC){
         if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged()) return;
 
         if (cells[finalR][finalC].isFlagged()){
@@ -276,7 +269,7 @@ public class MineSweeperController {
      * @param finalR - the row
      * @param finalC - column
      */
-    private void onLeftClick(int finalR, int finalC) throws IOException, URISyntaxException {
+    private void onLeftClick(int finalR, int finalC){
         if (cells[finalR][finalC].isFlagged()) return;
 
         if (!game.playerMove(finalR, finalC, false, !hasClicked)){

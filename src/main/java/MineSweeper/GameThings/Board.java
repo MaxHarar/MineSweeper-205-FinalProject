@@ -16,8 +16,6 @@
  *****************************************/
 package MineSweeper.GameThings;
 
-
-import MineSweeper.GameThings.Cell;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -34,16 +32,12 @@ public class Board {
         return visited;
     }
 
-    public void setVisited(List<Cell> visited) {
-        this.visited = visited;
-    }
-
-    List<Cell> visited = new ArrayList<Cell>();
+    List<Cell> visited = new ArrayList<>();
 
     /** number of bombs on the map */
     private int numBombs; // not being used yet, random bomb logic is in initCell
 
-    /** size of empty border around the cells matrix, allows for simpler neighbor checking */
+    /** size of empty border around the cell's matrix, allows for simpler neighbor checking */
     private final int borderSize = 1;
 
     /** An array of row col offsets for checking neighboring cells */
@@ -58,23 +52,22 @@ public class Board {
     }
 
     public void clearVisitedCells(){
-        visited = new ArrayList<Cell>();
+        visited = new ArrayList<>();
     }
 
     /**
      * Called when a cell is selected, passes work onto handleCellHelper()
-     * @param flagging - True if user is placing a flag
      * @param firstMove - True if this is the player's first move
      * @return a positive integer. 0 means it was successful, otherwise it was not.
      */
-    public int handleCell(int r, int c, boolean flagging, boolean firstMove){
+    public int handleCell(int r, int c, boolean firstMove){
         if (firstMove)
             initCells(r, c);
         return handleCellHelper(r,c,visited);
     }
 
     /**
-     * Recurses through all empty cells, makes them all visible including non empty cells bordering the area
+     * Recurse through all empty cells, makes them all visible including non-empty cells bordering the area
      * @param visited - cells that have been recursively visited already, prevents infinite loop
      * @return a positive integer. 0 means it was successful, 1 means a bomb was clicked (player loses)
      */
@@ -116,8 +109,6 @@ public class Board {
             }
         }
 
-        //why is this in here
-        //numBombs = (int)(cells.length * cells[0].length * .2);
         initBombs(r, c);
     }
 
@@ -151,8 +142,7 @@ public class Board {
     }
 
     private int distanceTo(Cell cell1, Cell cell2){
-        int val = (int)Math.sqrt(Math.pow(cell1.getRow() - cell2.getRow(),2) + Math.pow(cell1.getColumn() - cell2.getColumn(),2));
-        return val;
+        return (int)Math.sqrt(Math.pow(cell1.getRow() - cell2.getRow(),2) + Math.pow(cell1.getColumn() - cell2.getColumn(),2));
     }
 
     private int countNeighboringBombs(int r, int c){

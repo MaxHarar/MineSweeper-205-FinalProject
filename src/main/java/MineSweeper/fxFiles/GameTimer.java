@@ -44,11 +44,6 @@ public class GameTimer extends Label {
         this.setText(time);
     }
 
-    int getTime(){
-
-        return seconds;
-    }
-
     public void stop(){
         timeline.stop();
     }

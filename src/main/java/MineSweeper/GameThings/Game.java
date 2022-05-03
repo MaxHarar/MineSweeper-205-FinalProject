@@ -19,19 +19,17 @@ import java.util.List;
 public class Game {
 
 
-    private DIFFICULTY theDifficulty;
+    private final DIFFICULTY theDifficulty;
 
 
     /** size of the board in rows */
-    private int BOARD_ROWS = 18;
+    private final int BOARD_ROWS;
 
     /** size of the board in columns */
-    private int BOARD_COLS = 25;
+    private final int BOARD_COLS;
 
-    private int NUM_BOMBS = 10;
+    private final int NUM_BOMBS;
 
-    /** currently selected difficulty */
-  //  private DIFFICULTY difficulty; //not being used yet
 
     /** instance of the Board class */
     private Board theBoard;
@@ -48,15 +46,12 @@ public class Game {
         NUM_BOMBS = theDifficulty.getNumOfBombs();
 
         startGame();
-        //printBoard(false);
-        //recursionTest();
+
     }
 
     public int getRowCount(){ return BOARD_ROWS; }
     public int getColCount(){ return BOARD_COLS; }
     public Cell[][] getCells(){ return theBoard.getCells(); }
-    public void setBoardRows(int rows) { BOARD_ROWS = rows; }
-    public void setBoardCols(int cols) { BOARD_COLS = cols; }
     public int getNUM_BOMBS(){return NUM_BOMBS;}
 
     /**
@@ -107,12 +102,12 @@ public class Game {
      * @return true if succesfull, false if they have now lost the game
      */
     public boolean playerMove(int r, int c, boolean flagging, boolean firstMove){
-        return theBoard.handleCell(r,c,flagging,firstMove) == 0;
+        return theBoard.handleCell(r,c, firstMove) == 0;
     }
 
     public List<Cell> getVisitedCells(){
         return theBoard.getVisited();
     }
-    public void clearVisitedCells() { theBoard.clearVisitedCells(); }
+
 
 }

@@ -25,10 +25,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 public class MineSweeperView {
 
     /**The root Vbox*/
@@ -40,8 +36,6 @@ public class MineSweeperView {
 
     /**size of each grid element */
     public static final int gridSize = 20;
-    /**Rectangle [][] used for color*/
-    private final Rectangle[][] rects;
     /**labels - displayed to player */
     private final Label[][] labels;
     /**The rectGrid on*/
@@ -75,8 +69,7 @@ public class MineSweeperView {
      * The Javafx game creation
      * @param game - Game Object
      */
-    public MineSweeperView(Game game) throws IOException, URISyntaxException {
-        rects = new Rectangle[game.getRowCount()][game.getColCount()];
+    public MineSweeperView(Game game) {
         labels = new Label[game.getRowCount()][game.getColCount()];
         rectGrid = new GridPane();
         this.game = game;
@@ -86,7 +79,6 @@ public class MineSweeperView {
 
     public GridPane getRectGrid() { return rectGrid; }
     public GameTimer getGameTimer(){return gameTimer; }
-    public Rectangle[][] getRects(){ return rects; }
     public Label[][] getLabels(){ return labels; }
 
     public Rectangle getTopBarRect() { return topBarRect; }
@@ -96,9 +88,9 @@ public class MineSweeperView {
     /**
      * Initialize the Scene Graphics
      */
-    private void initSceneGraph() throws IOException, URISyntaxException {
+    private void initSceneGraph(){
         root = new VBox();
-        /**the topBar HBox*/
+        /*the topBar HBox*/
         HBox topBar = new HBox();
         topBarRect = new Rectangle();
         gameOptions = new HBox();
@@ -157,7 +149,6 @@ public class MineSweeperView {
         for (int r = 0; r < game.getRowCount(); r++){
             for (int c = 0; c < game.getColCount(); c++){
                 currRect = new Rectangle(gridSize, gridSize);
-                rects[r][c] = currRect;
                 labels[r][c] = new Label(" ");
 
                 sPane = new StackPane(currRect, labels[r][c]);
