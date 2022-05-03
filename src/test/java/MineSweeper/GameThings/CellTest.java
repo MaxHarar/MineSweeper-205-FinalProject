@@ -6,11 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CellTest {
 
-    Cell cell;
-    @Test
-    void setUp() {
-        cell = new Cell(10,10);
-    }
+    Cell cell = new Cell(10,10);
 
     @Test
     void setVisible() {
@@ -22,19 +18,22 @@ class CellTest {
 
     @Test
     void resetDisplayChar() {
+        cell.setHasBomb(true);
+        cell.resetDisplayChar();
+        assertTrue(cell.getDisplayChar() == '*');
     }
 
     @Test
     void saveDisplayCharAndUpdate() {
-        char character = 'a';
-        char character2 = 'b';
-        cell.saveDisplayCharAndUpdate(character);
-        cell.saveDisplayCharAndUpdate(character2);
-        assertTrue(cell.getDisplayChar() == character2);
+        cell.saveDisplayCharAndUpdate('a');
+        cell.saveDisplayCharAndUpdate('b');
+        assertTrue(cell.getDisplayChar() == 'b');
     }
 
     @Test
     void revertDisplayChar() {
+        cell.saveDisplayCharAndUpdate('a');
+        cell.saveDisplayCharAndUpdate('b');
         cell.revertDisplayChar();
         assertTrue(cell.getDisplayChar() == 'a');
     }
