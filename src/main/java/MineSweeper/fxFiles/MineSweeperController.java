@@ -110,9 +110,6 @@ public class MineSweeperController {
         flaggedText.setValue("Flags Remaining: " + (this.game.getNUM_BOMBS() - flaggedCount));
 
         theView.getFlaggedLabel().textProperty().bind(flaggedText);
-
-
-
     }
 
     /**
@@ -135,8 +132,6 @@ public class MineSweeperController {
                 });
             }
         }
-
-
 
         theView.getDifficultSelector().valueProperty().addListener(event -> {
 

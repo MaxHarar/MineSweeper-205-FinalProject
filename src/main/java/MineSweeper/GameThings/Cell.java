@@ -55,8 +55,21 @@ public class Cell {
     /**Display String Property*/
     private SimpleStringProperty displayStringProperty;
 
-
-
+    /**
+     *
+     * @param row
+     * @param column
+     */
+    public Cell(int row, int column){
+        neighboringBombs = 0;
+        hasBomb = false;
+        isFlagged = false;
+        isVisible = false;
+        isBorder = false;
+        displayStringProperty = new SimpleStringProperty(" ");
+        this.row = row;
+        this.column = column;
+    }
 
     /**Various getters and setters */
     public boolean isDarkTile() {return darkTile;}
@@ -89,15 +102,6 @@ public class Cell {
     public boolean isVisible() {
         return isVisible;
     }
-    public void setVisible(boolean visible) {
-        if (visible){
-            displayStringProperty.set(displayChar + " ");
-        }else{
-            displayStringProperty.set(" ");
-        }
-        isVisible = visible;
-    }
-
     public boolean isFlagged() {
         return isFlagged;
     }
@@ -113,6 +117,15 @@ public class Cell {
     public void addNeighboringBomb(int n){ neighboringBombs += n; }
     public int getNeighboringBombs(){ return neighboringBombs;}
 
+    public void setVisible(boolean visible) {
+        if (visible){
+            displayStringProperty.set(displayChar + " ");
+        }else{
+            displayStringProperty.set(" ");
+        }
+        isVisible = visible;
+    }
+
     /**
      * resets the display char, makes sure that any changes to the neighboringBombs is
      * reflected in the displayChar
@@ -124,33 +137,13 @@ public class Cell {
             displayChar = '*';
     }
 
-    /**
-     *
-     * @param row
-     * @param column
-     */
-    public Cell(int row, int column){
-        neighboringBombs = 0;
-        hasBomb = false;
-        isFlagged = false;
-        isVisible = false;
-        isBorder = false;
-        displayStringProperty = new SimpleStringProperty(" ");
-        this.row = row;
-        this.column = column;
-    }
-
     public void saveDisplayCharAndUpdate(char newDisplayChar){
-
         this.savedChar = this.displayChar;
         this.displayChar = newDisplayChar;
-
     }
 
     public void revertDisplayChar(){
-
         this.displayChar = this.savedChar;
-
     }
 
 }
