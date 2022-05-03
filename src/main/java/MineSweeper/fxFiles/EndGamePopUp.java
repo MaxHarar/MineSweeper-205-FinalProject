@@ -18,7 +18,6 @@ package MineSweeper.fxFiles;
 
 import MineSweeper.MineSweeperMain;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,8 +25,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class EndGamePopUp extends Stage {
@@ -35,47 +32,29 @@ public class EndGamePopUp extends Stage {
     private final Button exitBtn;
     private final Label gameOverMsg;
     private final Scene s;
-
-    public Button getExitBtn() {
-        return exitBtn;
-    }
-
-    public Button getPlayAgainBtn() {
-        return playAgainBtn;
-    }
-
     private final Button playAgainBtn;
+    private final VBox root;
     private DIFFICULTY currentDiff;
 
     MineSweeperMain main;
 
-    public EndGamePopUp(MineSweeperMain main,String message, DIFFICULTY currentDiff) throws IOException, URISyntaxException {
+    public EndGamePopUp(MineSweeperMain main,String message, DIFFICULTY currentDiff) {
         super();
         this.main = main;
         this.currentDiff = currentDiff;
-
         this.setTitle(message);
         this.setResizable(false);
-
         this.initModality(Modality.APPLICATION_MODAL);
 
-        VBox root = new VBox();
+        root = new VBox();
         gameOverMsg = new Label(message);
         playAgainBtn = new Button("Play again");
         exitBtn = new Button("Exit");
 
-
-
-
-        root.getStyleClass().add("EndGamePopUpRoot");
-
-
-      initHandlers();
-
         root.getChildren().addAll(gameOverMsg, playAgainBtn, exitBtn);
 
-
         s = new Scene(root);
+        initHandlers();
 
         try {
             s.getStylesheets().add(
@@ -85,10 +64,6 @@ public class EndGamePopUp extends Stage {
             System.out.println("NullPointer Exception ");
         }
         this.setScene(s);
-    }
-
-    private void handleCurrentDiff(){
-
     }
 
     private void initHandlers(){
@@ -121,8 +96,7 @@ public class EndGamePopUp extends Stage {
                 System.out.println("NullPointer Exception ");
             }
         }
-
-
+        root.getStyleClass().add("EndGamePopUpRoot");
         playAgainBtn.getStylesheets().add("EndGamePopUpButton");
         exitBtn.getStylesheets().add("EndGamePopUpButton");
         gameOverMsg.getStyleClass().add("EndGamePopUpLabel");
