@@ -5,17 +5,15 @@ public enum DIFFICULTY {
 
 
 
-        EASY(14,19,18,"Easy"),
-        MEDIUM(18,23,40,"Medium"),
-        HARD(26,33,100,"Hard"),
-        INSANE(26, 33, 200,"Insane");
+        EASY(14,19,18),
+        MEDIUM(18,23,40),
+        HARD(26,33,100),
+        INSANE(26, 33, 200);
 
 
     private final int row;
     private final int column;
     private final int numOfBombs;
-    private final String stringName;
-
 
     public int getRow() {
         return row;
@@ -29,14 +27,12 @@ public enum DIFFICULTY {
         return column;
     }
 
-    public String getStringName(){return stringName;}
 
 
-    DIFFICULTY(int row, int column, int numOfBombs, String stringName){
+    DIFFICULTY(int row, int column, int numOfBombs){
         this.row = row;
         this.column = column;
         this.numOfBombs = numOfBombs;
-        this.stringName = stringName;
 
         }
 

@@ -25,25 +25,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 public class MineSweeperView {
 
     /**The root Vbox*/
     private VBox root;
     /**The game the player is playing*/
     private final Game game;
-    /**the topBar HBox*/
-    private HBox topBar;
 
     private GameTimer gameTimer;
 
     /**size of each grid element */
     public static final int gridSize = 20;
-    /**Rectangle [][] used for color*/
-    private final Rectangle[][] rects;
     /**labels - displayed to player */
     private final Label[][] labels;
     /**The rectGrid on*/
@@ -71,12 +63,13 @@ public class MineSweeperView {
     }
 
 
+
+
     /**
      * The Javafx game creation
      * @param game - Game Object
      */
-    public MineSweeperView(Game game) throws IOException, URISyntaxException {
-        rects = new Rectangle[game.getRowCount()][game.getColCount()];
+    public MineSweeperView(Game game) {
         labels = new Label[game.getRowCount()][game.getColCount()];
         rectGrid = new GridPane();
         this.game = game;
@@ -86,7 +79,6 @@ public class MineSweeperView {
 
     public GridPane getRectGrid() { return rectGrid; }
     public GameTimer getGameTimer(){return gameTimer; }
-    public Rectangle[][] getRects(){ return rects; }
     public Label[][] getLabels(){ return labels; }
 
     public Rectangle getTopBarRect() { return topBarRect; }
@@ -96,9 +88,10 @@ public class MineSweeperView {
     /**
      * Initialize the Scene Graphics
      */
-    private void initSceneGraph() throws IOException, URISyntaxException {
+    private void initSceneGraph(){
         root = new VBox();
-        topBar = new HBox();
+        /*the topBar HBox*/
+        HBox topBar = new HBox();
         topBarRect = new Rectangle();
         gameOptions = new HBox();
 
@@ -112,11 +105,13 @@ public class MineSweeperView {
         this.cells = game.getCells();
     }
 
-    private StackPane getTopBarStackPane() throws IOException, URISyntaxException {
+    private StackPane getTopBarStackPane() {
         this.gameTimer = new GameTimer();
+        gameTimer.getStyleClass().add("TopPane");
         gameTimer.start();
 
         flaggedLabel = new Label("temp");
+        flaggedLabel.getStyleClass().add("TopPane");
 
         difficultSelector = new ComboBox<>();
 
@@ -128,16 +123,20 @@ public class MineSweeperView {
         );
 
         switch (game.getTheDifficulty()) {
-            case EASY -> difficultSelector.getSelectionModel().selectFirst();
-            case MEDIUM -> difficultSelector.getSelectionModel().select(1);
-            case HARD -> difficultSelector.getSelectionModel().select(2);
-            case INSANE -> difficultSelector.getSelectionModel().select(3);
+            case EASY: difficultSelector.getSelectionModel().selectFirst();
+            break;
+            case MEDIUM: difficultSelector.getSelectionModel().select(1);
+            break;
+            case HARD: difficultSelector.getSelectionModel().select(2);
+            break;
+            case INSANE: difficultSelector.getSelectionModel().select(3);
+            break;
         }
 
         colorMode = new Button("Dark Mode");
 
         gameOptions.getChildren().addAll(gameTimer,difficultSelector,flaggedLabel, colorMode);
-
+        gameOptions.getStyleClass().add("TopPane");
         return new StackPane(topBarRect, gameOptions);
     }
 
@@ -150,7 +149,6 @@ public class MineSweeperView {
         for (int r = 0; r < game.getRowCount(); r++){
             for (int c = 0; c < game.getColCount(); c++){
                 currRect = new Rectangle(gridSize, gridSize);
-                rects[r][c] = currRect;
                 labels[r][c] = new Label(" ");
 
                 sPane = new StackPane(currRect, labels[r][c]);

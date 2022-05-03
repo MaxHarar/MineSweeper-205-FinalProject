@@ -15,23 +15,22 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 public class GameTimer extends Label {
     private int seconds;
+    private Timeline timeline;
 
     public GameTimer(){
         seconds = 0;
-        this.setFont(new Font(20));
+
     }
 
     public void start(){
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
             seconds++;
             setTime();
         }));
@@ -45,8 +44,8 @@ public class GameTimer extends Label {
         this.setText(time);
     }
 
-    int getTime(){
-
-        return seconds;
+    public void stop(){
+        timeline.stop();
     }
+
 }

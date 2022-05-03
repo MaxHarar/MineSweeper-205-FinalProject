@@ -65,10 +65,37 @@
     -fx-background-color: #f50202;
 }
 
-.EndGamePopUp{
-    -fx-background-color: #312f2f;
-    -fx-pref-width: 120;
-    -fx-pref-height: 120;
+.TopPane{
+    -fx-background-color: LightBlue;
+    -fx-alignment: center;
+
+    -fx-font-weight: Bold;
+    -fx-font-size: 16;
+
+}
+
+.EndGamePopUpRoot{
+
+    -fx-background-color: LightBlue;
+    -fx-max-height: 250;
+    -fx-max-width: 100;
+    -fx-alignment: center;
+
+
+
+}
+
+.EndGamePopUpLabel{
+
+    -fx-text-fill: #000000;
+
+
+
+}
+
+.EndGamePopUpButton{
+
+    -fx-text-fill: #98c0f3;
 
 }
 
