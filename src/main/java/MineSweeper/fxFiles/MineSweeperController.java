@@ -19,7 +19,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
+
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 
 /**
- * The Mine Sweeper Controller - controls userinput and creates the bindings
+ * The Mine Sweeper Controller - controls user input and creates the bindings
  * and handlers
  */
 public class MineSweeperController {
@@ -52,6 +52,8 @@ public class MineSweeperController {
 
     private DIFFICULTY currentDifficulty;
 
+    private boolean isDark;
+
 
     private int defusedCount;
 
@@ -73,14 +75,12 @@ public class MineSweeperController {
         this.game = game;
         this.main = main;
         counter =  1;
+        isDark = false;
 
         this.labels = theView.getLabels();
 
-        /*2D Rectangle array - here for color */
-        Rectangle[][] rects = theView.getRects();
         this.cells = game.getCells();
         this.currentDifficulty = game.getTheDifficulty();
-        GameTimer gameTimer = theView.getGameTimer();
 
 
 
@@ -142,10 +142,14 @@ public class MineSweeperController {
             /////////////////////////////////////////////////////////////////////
 
             switch (difficulty) {
-                case "EASY" -> currentDifficulty = DIFFICULTY.EASY;
-                case "MEDIUM" -> currentDifficulty = DIFFICULTY.MEDIUM;
-                case "HARD" -> currentDifficulty = DIFFICULTY.HARD;
-                case "INSANE" -> currentDifficulty = DIFFICULTY.INSANE;
+                case "EASY" : currentDifficulty = DIFFICULTY.EASY;
+                        break;
+                case "MEDIUM" : currentDifficulty = DIFFICULTY.MEDIUM;
+                        break;
+                case "HARD"  :currentDifficulty = DIFFICULTY.HARD;
+                        break;
+                case "INSANE" :currentDifficulty = DIFFICULTY.INSANE;
+                    break;
             }
             main.resetGame(currentDifficulty);
         });
@@ -159,6 +163,8 @@ public class MineSweeperController {
                         Objects.requireNonNull(getClass().getResource("/MineSweeperStyleLight.css"))
                                 .toExternalForm());
                 theView.getColorMode().setText("Dark Mode");
+                isDark = false;
+
 
             }else{
 
@@ -169,6 +175,7 @@ public class MineSweeperController {
                                 .toExternalForm());
 
                 theView.getColorMode().setText("Standard Mode");
+                isDark = true;
 
             }
 
@@ -199,7 +206,7 @@ public class MineSweeperController {
      * @param finalR - row
      * @param finalC - column
      */
-    private void onRightClick(int finalR, int finalC) throws IOException, URISyntaxException {
+    private void onRightClick(int finalR, int finalC){
         if (cells[finalR][finalC].isVisible()  &&  !cells[finalR][finalC].isFlagged()) return;
 
         if (cells[finalR][finalC].isFlagged()){
@@ -242,7 +249,9 @@ public class MineSweeperController {
             }
 
             if (defusedCount == game.getNUM_BOMBS()){
+                theView.getGameTimer().stop();
                 endGamePopUp = new EndGamePopUp(main,"Winner!", currentDifficulty);
+                endGamePopUp.initStyle(isDark);
                 endGamePopUp.show();
             }
         }
@@ -255,12 +264,13 @@ public class MineSweeperController {
      * @param finalR - the row
      * @param finalC - column
      */
-    private void onLeftClick(int finalR, int finalC) throws IOException, URISyntaxException {
+    private void onLeftClick(int finalR, int finalC){
         if (cells[finalR][finalC].isFlagged()) return;
 
         if (!game.playerMove(finalR, finalC, false, !hasClicked)){
-
+             theView.getGameTimer().stop();
             endGamePopUp = new EndGamePopUp(main,"GameOver!", currentDifficulty);
+            endGamePopUp.initStyle(isDark);
             endGamePopUp.show();
         }
 
