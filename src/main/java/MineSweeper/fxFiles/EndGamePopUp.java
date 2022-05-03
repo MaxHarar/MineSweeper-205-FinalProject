@@ -56,13 +56,7 @@ public class EndGamePopUp extends Stage {
         s = new Scene(root);
         initHandlers();
 
-        try {
-            s.getStylesheets().add(
-                    Objects.requireNonNull(getClass().getResource("/MineSweeperStyleLight.css"))
-                            .toExternalForm());
-        } catch(NullPointerException e){
-            System.out.println("NullPointer Exception ");
-        }
+
         this.setScene(s);
     }
 
@@ -95,10 +89,19 @@ public class EndGamePopUp extends Stage {
             } catch(NullPointerException e){
                 System.out.println("NullPointer Exception ");
             }
+        }else{
+
+            try {
+                s.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/MineSweeperStyleLight.css"))
+                                .toExternalForm());
+            } catch(NullPointerException e){
+                System.out.println("NullPointer Exception ");
+            }
         }
+
+
         root.getStyleClass().add("EndGamePopUpRoot");
-        playAgainBtn.getStylesheets().add("EndGamePopUpButton");
-        exitBtn.getStylesheets().add("EndGamePopUpButton");
         gameOverMsg.getStyleClass().add("EndGamePopUpLabel");
 
 
