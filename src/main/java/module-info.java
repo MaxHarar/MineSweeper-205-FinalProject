@@ -14,7 +14,8 @@ module csci205_FinalProject {
     requires commons.csv;
     requires org.apache.logging.log4j;
 
-    exports MineSweeper;
+
     exports MineSweeper.GameThings;
     exports MineSweeper.fxFiles;
+    exports MineSweeper;
 }
