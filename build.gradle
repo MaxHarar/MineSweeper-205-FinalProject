@@ -54,11 +54,5 @@ dependencies {
 application {
     mainModule = "csci205_FinalProject"
     mainClassName = "MineSweeper.MineSweeperMain"
-
-    if (project.hasProperty("mainClass")) {
-        getMainClass().set(project.getProperty("mainClass"))
-    }
-    else {
-        getMainClass().set(mainClassName)
-    }
+    getMainClass().set(mainClassName)
 }
